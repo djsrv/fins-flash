@@ -63,6 +63,76 @@ public class BlockIO {
 		return topBlock;
 	}
 
+	public static function scripts3ToScripts2(blockMap:Object):Array {
+		var result:Array = [];
+		for (var blockID:String in blockMap) {
+			var blockObj:Object = blockMap[blockID];
+			if (blockObj.topLevel) {
+				result.push([
+					blockObj.x,
+					blockObj.y,
+					stack3ToStack2(blockObj, blockMap)
+				]);
+			}
+		}
+		return result;
+	}
+
+	private static function stack3ToStack2(blockObj:Object, blockMap:Object):Array {
+		var result:Array = [];
+		while (blockObj) {
+			result.push(block3ToBlock2(blockObj, blockMap));
+			if (blockObj.next) {
+				blockObj = blockMap[blockObj.next];
+			} else {
+				blockObj = null;
+			}
+		}
+		return result;
+	}
+
+	private static function block3ToBlock2(blockObj:Object, blockMap:Object):* {
+		if (blockObj is String) { // block id
+			blockObj = blockMap[blockObj];
+		}
+		if (blockObj is Array) { // literal
+			return literal3ToLiteral2(blockObj as Array);
+		}
+		var op2:String = Scratch3Data.op3ToOp2(blockObj.opcode);
+		if (op2) {
+			var result:Array = [op2];
+			var spec:Object = Scratch3Data.specMap[op2];
+			for each (var argSpec:Object in spec.argMap) {
+				var argArray:Array;
+				if (argSpec.type == 'input') { // input
+					argArray = blockObj.inputs[argSpec.inputName];
+					if (argArray) {
+						result.push(block3ToBlock2(argArray[1], blockMap));
+					} else {
+						result.push(null);
+					}
+				} else { // field
+					argArray = blockObj.fields[argSpec.fieldName];
+					result.push(argArray[0]);
+				}
+			}
+			return result;
+		}
+		return ['undefined'];
+	}
+
+	private static function literal3ToLiteral2(literalArray:Array):* {
+		var type:int = literalArray[0];
+		var value:* = literalArray[1];
+		if (type == Scratch3Data.VAR_PRIMITIVE) {
+			return [Specs.GET_VAR, value];
+		}
+		if (type == Scratch3Data.LIST_PRIMITIVE) {
+			return [Specs.GET_LIST, value];
+		}
+		return value;
+	}
+
 	private static function blockToArray(b:Block):Array {
 		// Return an array structure for this block.
 		var result:Array = [b.op];

@@ -692,15 +692,15 @@ public class ScratchObj extends Sprite {
 		// }
 
 		// scripts
-		scripts = [];
-		// for (i = 0; i < scripts.length; i++) {
-		// 	// entries are of the form: [x y stack]
-		// 	var entry:Array = scripts[i];
-		// 	var b:Block = BlockIO.arrayToStack(entry[2], isStage);
-		// 	b.x = entry[0];
-		// 	b.y = entry[1];
-		// 	scripts[i] = b;
-		// }
+		scripts = BlockIO.scripts3ToScripts2(jsonObj.blocks);
+		for (i = 0; i < scripts.length; i++) {
+			// entries are of the form: [x y stack]
+			var entry:Array = scripts[i];
+			var b:Block = BlockIO.arrayToStack(entry[2], isStage);
+			b.x = entry[0];
+			b.y = entry[1];
+			scripts[i] = b;
+		}
 
 		// script comments
 		scriptComments = [];
