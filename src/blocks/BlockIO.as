@@ -79,6 +79,9 @@ public class BlockIO {
 	}
 
 	private static function stack3ToStack2(blockObj:Object, blockMap:Object):Array {
+		if (blockObj is String) { // block id
+			blockObj = blockMap[blockObj];
+		}
 		var result:Array = [];
 		while (blockObj) {
 			result.push(block3ToBlock2(blockObj, blockMap));
@@ -107,7 +110,25 @@ public class BlockIO {
 				if (argSpec.type == 'input') { // input
 					argArray = blockObj.inputs[argSpec.inputName];
 					if (argArray) {
-						result.push(block3ToBlock2(argArray[1], blockMap));
+						var inputType:int = argArray[0];
+						var inputValue:* = argArray[1];
+						if (inputType == Scratch3Data.INPUT_SAME_BLOCK_SHADOW) {
+							if (inputValue is String) {
+								var inputObj:Object = blockMap[inputValue];
+								result.push(inputObj.fields[argSpec.inputName][0]);
+							} else {
+								result.push(literal3ToLiteral2(inputValue));
+							}
+						} else if (inputType == Scratch3Data.INPUT_BLOCK_NO_SHADOW
+									|| inputType == Scratch3Data.INPUT_DIFF_BLOCK_SHADOW) {
+							if (argSpec.inputOp == 'substack') {
+								result.push(stack3ToStack2(inputValue, blockMap));
+							} else {
+								result.push(block3ToBlock2(inputValue, blockMap));
+							}
+						} else {
+							result.push(['undefined']);
+						}
 					} else {
 						result.push(null);
 					}
