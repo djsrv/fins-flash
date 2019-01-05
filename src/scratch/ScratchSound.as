@@ -271,5 +271,14 @@ public class ScratchSound {
 		rate = jsonObj.rate;
 		format = jsonObj.format;
 	}
+
+	public function readJSON3(jsonObj:Object):void {
+		soundName = jsonObj.name;
+		soundID = -1;
+		__md5 = jsonObj.md5ext; // Project load uses this value to fetch sound data
+		sampleCount = jsonObj.sampleCount;
+		rate = jsonObj.rate;
+		format = jsonObj.format;
+	}
 }
 }

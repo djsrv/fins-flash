@@ -912,6 +912,49 @@ public class ScratchStage extends ScratchObj {
 		}
 	}
 
+	public function readProjectJSON3(jsonObj:Object):void {
+		var targets:Array, i:int, o:Object;
+
+		targets = jsonObj.targets;
+
+		// instantiate sprites and record their names
+		var spriteNameMap:Object = new Object();
+		for (i = 0; i < targets.length; i++) {
+			o = targets[i];
+			if (o.isStage) { // o is the stage record
+				this.readJSON3(o);
+				spriteNameMap[this.objName] = this;
+			} else { // o is a sprite record
+				var s:ScratchSprite = new ScratchSprite();
+				s.readJSON3(o);
+				spriteNameMap[s.objName] = s;
+				addChild(s);
+			}
+		}
+
+		// // instantiate Watchers and add all children (sprites and watchers)
+		// for (i = 0; i < children.length; i++) {
+		// 	o = children[i];
+		// 	if (o is ScratchSprite) {
+		// 		addChild(ScratchSprite(o));
+		// 	} else if (o.sliderMin != undefined) { // o is a watcher record
+		// 		o.target = spriteNameMap[o.target]; // update target before instantiating
+		// 		if (o.target) {
+		// 			var w:Watcher = new Watcher();
+		// 			w.readJSON(o);
+		// 			addChild(w);
+		// 		}
+		// 	}
+		// }
+	}
+
+	public override function readJSON3(jsonObj:Object):void {
+		// read stage fields
+		super.readJSON3(jsonObj);
+		tempoBPM = jsonObj.tempo;
+		videoAlpha = jsonObj.videoTransparency;
+	}
+
 	public override function getSummary():String {
 		var summary:String = super.getSummary();
 		for each (var s:ScratchSprite in sprites()) {

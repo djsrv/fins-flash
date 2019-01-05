@@ -388,7 +388,7 @@ public class Scratch extends Sprite {
 	}
 
 	protected function startInEditMode():Boolean {
-		return isOffline || isExtensionDevMode;
+		return true;
 	}
 
 	public function getMediaLibrary(type:String, whenDone:Function):MediaLibrary {

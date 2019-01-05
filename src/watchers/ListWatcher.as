@@ -611,4 +611,7 @@ public class ListWatcher extends Sprite {
 		updateTitleAndContents();
 	}
 
+	public function readJSON3(array:Array):void {
+	}
+
 }}

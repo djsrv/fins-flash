@@ -612,6 +612,15 @@ public class ScratchCostume {
 		}
 	}
 
+	public function readJSON3(jsonObj:Object):void {
+		costumeName = jsonObj.name;
+		baseLayerID = -1;
+		baseLayerMD5 = jsonObj.md5ext;
+		if (jsonObj.bitmapResolution) bitmapResolution = jsonObj.bitmapResolution;
+		rotationCenterX = jsonObj.rotationCenterX;
+		rotationCenterY = jsonObj.rotationCenterY;
+	}
+
 	public function prepareToSave():void {
 		if (oldComposite) computeTextLayer();
 		if (baseLayerID == WasEdited) baseLayerMD5 = null; // costume was edited; recompute hash

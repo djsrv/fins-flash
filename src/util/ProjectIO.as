@@ -50,6 +50,8 @@ public class ProjectIO {
 	protected var app:Scratch;
 	protected var images:Array = [];
 	protected var sounds:Array = [];
+	protected var imagesByFilename:Object = {};
+	protected var soundsByFilename:Object = {};
 
 	public function ProjectIO(app:Scratch):void {
 		this.app = app;
@@ -146,7 +148,7 @@ public class ProjectIO {
 	}
 
 	protected function decodeFromZipFile(zipData:ByteArray):ScratchObj {
-		var jsonData:String;
+		var jsonData:String, proj:ScratchStage, sprite:ScratchSprite;
 		images = [];
 		sounds = [];
 		try {
@@ -162,57 +164,80 @@ public class ProjectIO {
 		for each (var f:Array in files) {
 			var fName:String = f[0];
 			if (fName.indexOf('__MACOSX') > -1) continue; // skip MacOS meta info in zip file
-			var fIndex:int = int(integerName(fName));
 			var contents:ByteArray = f[1];
-			if (fName.slice(-4) == '.gif') images[fIndex] = contents;
-			if (fName.slice(-4) == '.jpg') images[fIndex] = contents;
-			if (fName.slice(-4) == '.png') images[fIndex] = contents;
-			if (fName.slice(-4) == '.svg') images[fIndex] = contents;
-			if (fName.slice(-4) == '.wav') sounds[fIndex] = contents;
-			if (fName.slice(-4) == '.mp3') sounds[fIndex] = contents;
+			if (fName.slice(-4) == '.gif') imagesByFilename[fName] = contents;
+			if (fName.slice(-4) == '.jpg') imagesByFilename[fName] = contents;
+			if (fName.slice(-4) == '.png') imagesByFilename[fName] = contents;
+			if (fName.slice(-4) == '.svg') imagesByFilename[fName] = contents;
+			if (fName.slice(-4) == '.wav') soundsByFilename[fName] = contents;
+			if (fName.slice(-4) == '.mp3') soundsByFilename[fName] = contents;
 			if (fName.slice(-5) == '.json') jsonData = contents.readUTFBytes(contents.length);
 		}
 		if (jsonData == null) return null;
 		var jsonObj:Object = util.JSON.parse(jsonData);
-		if (jsonObj['children']) { // project JSON
-			var proj:ScratchStage = getScratchStage();
+		if (jsonObj['children']) { // 2.0 project JSON
+			proj = getScratchStage();
 			proj.readJSON(jsonObj);
 			if (proj.penLayerID >= 0) proj.penLayerPNG = images[proj.penLayerID]
 			else if (proj.penLayerMD5) proj.penLayerPNG = images[0];
 			installImagesAndSounds(proj.allObjects());
 			return proj;
 		}
-		if (jsonObj['direction'] != null) { // sprite JSON
-			var sprite:ScratchSprite = new ScratchSprite();
+		if (jsonObj['scratchX'] != null) { // 2.0 sprite JSON
+			sprite = new ScratchSprite();
 			sprite.readJSON(jsonObj);
 			sprite.instantiateFromJSON(app.stagePane)
 			installImagesAndSounds([sprite]);
 			return sprite;
 		}
+		if (jsonObj['targets']) { // 3.0 project JSON
+			proj = getScratchStage();
+			proj.readProjectJSON3(jsonObj);
+			installImagesAndSounds3(proj.allObjects());
+			return proj;
+		}
+		if (jsonObj['x'] != null) { // 3.0 sprite JSON
+			sprite = new ScratchSprite();
+			sprite.readJSON3(jsonObj);
+			installImagesAndSounds3([sprite]);
+			return sprite;
+		}
 		return null;
-	}
-
-	private function integerName(s:String):String {
-		// Return the substring of digits preceding the last '.' in the given string.
-		// For example integerName('123.jpg') -> '123'.
-		const digits:String = '1234567890';
-		var end:int = s.lastIndexOf('.');
-		if (end < 0) end = s.length;
-		var start:int = end - 1;
-		if (start < 0) return s;
-		while ((start >= 0) && (digits.indexOf(s.charAt(start)) >= 0)) start--;
-		return s.slice(start + 1, end);
 	}
 
 	private function installImagesAndSounds(objList:Array):void {
 		// Install the images and sounds for the given list of ScratchObj objects.
 		for each (var obj:ScratchObj in objList) {
 			for each (var c:ScratchCostume in obj.costumes) {
-				if (images[c.baseLayerID] != undefined) c.baseLayerData = images[c.baseLayerID];
-				if (images[c.textLayerID] != undefined) c.textLayerData = images[c.textLayerID];
+				var baseLayerExt:String = c.baseLayerMD5.slice(c.baseLayerMD5.lastIndexOf('.'));
+				var baseLayerFilename:String = c.baseLayerID + baseLayerExt;
+				if (imagesByFilename[baseLayerFilename]) c.baseLayerData = imagesByFilename[baseLayerFilename];
+				if (c.textLayerMD5) {
+					var textLayerExt:String = c.textLayerMD5.slice(c.textLayerMD5.lastIndexOf('.'));
+					var textLayerFilename:String = c.textLayerID + textLayerExt;
+					if (imagesByFilename[textLayerFilename]) c.textLayerData = imagesByFilename[textLayerFilename];
+				}
 			}
 			for each (var snd:ScratchSound in obj.sounds) {
-				var sndData:* = sounds[snd.soundID];
+				var sndExt:String = snd.md5.slice(snd.md5.lastIndexOf('.'));
+				var sndFilename:String = snd.soundID + sndExt;
+				var sndData:* = soundsByFilename[sndFilename];
+				if (sndData) {
+					snd.soundData = sndData;
+					snd.convertMP3IfNeeded();
+				}
+			}
+		}
+	}
+
+	private function installImagesAndSounds3(objList:Array):void {
+		// Install the images and sounds for the given list of ScratchObj objects.
+		for each (var obj:ScratchObj in objList) {
+			for each (var c:ScratchCostume in obj.costumes) {
+				if (imagesByFilename[c.baseLayerMD5]) c.baseLayerData = imagesByFilename[c.baseLayerMD5];
+			}
+			for each (var snd:ScratchSound in obj.sounds) {
+				var sndData:* = soundsByFilename[snd.md5];
 				if (sndData) {
 					snd.soundData = sndData;
 					snd.convertMP3IfNeeded();

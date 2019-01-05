@@ -676,6 +676,26 @@ public class ScratchSprite extends ScratchObj {
 		setScratchXY(scratchX, scratchY);
 	}
 
+	public override function readJSON3(jsonObj:Object):void {
+		super.readJSON3(jsonObj);
+		scratchX = jsonObj.x;
+		scratchY = jsonObj.y;
+		scaleX = scaleY = jsonObj.size / 100;
+		direction = jsonObj.direction;
+		if (jsonObj.rotationStyle == "don't rotate") {
+			rotationStyle = "none";
+		} else if (jsonObj.rotationStyle == "left-right") {
+			rotationStyle = "leftRight";
+		} else if (jsonObj.rotationStyle == "all around") {
+			rotationStyle = "normal";
+		}
+		isDraggable = jsonObj.draggable;
+		// indexInLibrary = jsonObj.indexInLibrary;
+		visible = jsonObj.visible;
+		spriteInfo = {};
+		setScratchXY(scratchX, scratchY);
+	}
+
 	public function getVisibleBounds(space:DisplayObject):Rectangle {
 		if(space == this) {
 			var rot:Number = rotation;

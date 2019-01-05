@@ -665,6 +665,69 @@ public class ScratchObj extends Sprite {
 		}
 	}
 
+	public function readJSON3(jsonObj:Object):void {
+		var id:String, i:int;
+
+		objName = jsonObj.name;
+
+		// variables
+		variables = [];
+		var variablesById:Object = jsonObj.variables || {};
+		for (id in variablesById) {
+			var varArray:Array = variablesById[id];
+			variables.push(new Variable(varArray[0], varArray[1]));
+		}
+
+		// lists
+		lists = [];
+		// var listsById:Object = jsonObj.lists || {};
+		// var (id in listsById) {
+		// 	var listArray:Array = listsById[id];
+		// 	var newList:ListWatcher = new ListWatcher();
+		// 	newList.readJSON3(listArray);
+		// 	newList.target = this;
+		// 	newStage.addChild(newList);
+		// 	newList.updateTitleAndContents();
+		// 	lists[i] = newList;
+		// }
+
+		// scripts
+		scripts = [];
+		// for (i = 0; i < scripts.length; i++) {
+		// 	// entries are of the form: [x y stack]
+		// 	var entry:Array = scripts[i];
+		// 	var b:Block = BlockIO.arrayToStack(entry[2], isStage);
+		// 	b.x = entry[0];
+		// 	b.y = entry[1];
+		// 	scripts[i] = b;
+		// }
+
+		// script comments
+		scriptComments = [];
+		// for (i = 0; i < scriptComments.length; i++) {
+		// 	scriptComments[i] = ScratchComment.fromArray(scriptComments[i]);
+		// }
+
+		// sounds
+		sounds = jsonObj.sounds || [];
+		for (i = 0; i < sounds.length; i++) {
+			var soundObj:Object = sounds[i];
+			sounds[i] = new ScratchSound('json temp', null);
+			sounds[i].readJSON3(soundObj);
+		}
+
+		// costumes
+		costumes = jsonObj.costumes || [];
+		for (i = 0; i < costumes.length; i++) {
+			var costumeObj:Object = costumes[i];
+			costumes[i] = new ScratchCostume('json temp', null);
+			costumes[i].readJSON3(costumeObj);
+		}
+		
+		currentCostumeIndex = jsonObj.currentCostume;
+		if (isNaNOrInfinity(currentCostumeIndex)) currentCostumeIndex = 0;
+	}
+
 	public function getSummary():String {
 		var s:Array = [];
 		s.push(h1(objName));
