@@ -189,7 +189,7 @@ public class Specs {
 		["-"],
 		["change volume by %n",					" ", 3, "sound_changevolumeby",					-10],
 		["set volume to %n%",					" ", 3, "sound_setvolumeto", 					100],
-		["sound_volume",								"r", 3, "sound_volume"],
+		["volume",								"r", 3, "sound_volume"],
 		["-"],
 		["change tempo by %n",					" ", 3, "music_changeTempo",					20],
 		["set tempo to %n bpm",					" ", 3, "music_setTempo",						60],
@@ -282,7 +282,7 @@ public class Specs {
 		["turn video %m.videoState",			" ", 7, "videoSensing_videoToggle",			"on"],
 		["set video transparency to %n%",		" ", 7, "videoSensing_setVideoTransparency",		50],
 		["-"],
-		["sensing_timer",								"r", 7, "sensing_timer"],
+		["timer",								"r", 7, "sensing_timer"],
 		["reset timer",							" ", 7, "sensing_resettimer"],
 		["-"],
 		["%m.attribute of %m.spriteOrStage",	"r", 7, "sensing_of"],
@@ -293,7 +293,7 @@ public class Specs {
 
 		// stage sensing
 		["ask %s and wait",						" ", 107, "sensing_askandwait", 				"What's your name?"],
-		["sensing_answer",								"r", 107, "sensing_answer"],
+		["answer",								"r", 107, "sensing_answer"],
 		["-"],
 		["key %m.key pressed?",					"b", 107, "sensing_keypressed",		"space"],
 		["mouse down?",							"b", 107, "sensing_mousedown"],
