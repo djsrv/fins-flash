@@ -93,7 +93,7 @@ public class PaletteBuilder {
 				var blockColor:int = (app.interp.isImplemented(spec[3])) ? catColor : 0x505050;
 				var defaultArgs:Array = targetObj.defaultArgsFor(spec[3], spec.slice(4));
 				var label:String = spec[0];
-				if (targetObj.isStage && spec[3] == 'whenClicked') label = 'when Stage clicked';
+				if (targetObj.isStage && spec[3] == 'event_whenthisspriteclicked') label = 'when Stage clicked';
 				var block:Block = new Block(label, spec[1], blockColor, spec[3], defaultArgs);
 				var showCheckbox:Boolean = isCheckboxReporter(spec[3]);
 				if (showCheckbox) addReporterCheckbox(block);
@@ -304,15 +304,15 @@ public class PaletteBuilder {
 
 	protected function isCheckboxReporter(op:String):Boolean {
 		const checkboxReporters:Array = [
-			'xpos', 'ypos', 'heading', 'costumeIndex', 'scale', 'volume', 'timeAndDate',
-			'backgroundIndex', 'sceneName', 'tempo', 'answer', 'timer', 'soundLevel', 'isLoud',
-			'sensor:', 'sensorPressed:', 'senseVideoMotion', 'xScroll', 'yScroll',
+			'motion_xposition', 'motion_yposition', 'motion_direction', 'looks_costumenumbername', 'looks_size', 'sound_volume', 'sensing_current',
+			'looks_backdropnumbername', 'looks_backdropnumbername', 'music_getTempo', 'sensing_answer', 'sensing_timer', 'sensing_loudness', 'sensing_loud',
+			'sensor:', 'sensorPressed:', 'sensing_videoon', 'motion_xscroll', 'motion_yscroll',
 			'getDistance', 'getTilt'];
 		return checkboxReporters.indexOf(op) > -1;
 	}
 
 	private function isSpriteSpecific(op:String):Boolean {
-		const spriteSpecific:Array = ['costumeIndex', 'xpos', 'ypos', 'heading', 'scale', 'volume'];
+		const spriteSpecific:Array = ['looks_costumenumbername', 'motion_xposition', 'motion_yposition', 'motion_direction', 'looks_size', 'sound_volume'];
 		return spriteSpecific.indexOf(op) > -1;
 	}
 
@@ -346,11 +346,11 @@ public class PaletteBuilder {
 		var data:Object = b.clientData;
 		if (data.block) {
 			switch (data.block.op) {
-				case 'senseVideoMotion':
+				case 'sensing_videoon':
 					data.targetObj = getBlockArg(data.block, 1) == 'Stage' ? app.stagePane : app.viewedObj();
-				case 'sensor:':
-				case 'sensorPressed:':
-				case 'timeAndDate':
+				// case 'sensor:':
+				// case 'sensorPressed:':
+				// case 'sensing_current':
 					data.param = getBlockArg(data.block, 0);
 					break;
 			}
