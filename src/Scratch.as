@@ -625,6 +625,8 @@ public class Scratch extends Sprite {
 			if (StringUtil.endsWith(s, '.sb')) s = s.slice(0, -3);
 			else if (StringUtil.endsWith(s, '.sb2')) s = s.slice(0, -4);
 			else if (StringUtil.endsWith(s, '.sbx')) s = s.slice(0, -4);
+			else if (StringUtil.endsWith(s, '.sb3')) s = s.slice(0, -4);
+			else if (StringUtil.endsWith(s, '.fins')) s = s.slice(0, -5);
 			else break;
 		}
 		stagePart.setProjectName(s);
@@ -1199,7 +1201,7 @@ public class Scratch extends Sprite {
 	public function exportProjectToFile(fromJS:Boolean = false, saveCallback:Function = null):void {
 		function squeakSoundsConverted():void {
 			scriptsPane.saveScripts(false);
-			var projectType:String = extensionManager.hasExperimentalExtensions() ? '.sbx' : '.sb2';
+			var projectType:String = extensionManager.hasExperimentalExtensions() ? '.sbx' : '.fins';
 			var defaultName:String = StringUtil.trim(projectName());
 			defaultName = ((defaultName.length > 0) ? defaultName : 'project') + projectType;
 			var zipData:ByteArray = projIO.encodeProjectAsZipFile(stagePane);

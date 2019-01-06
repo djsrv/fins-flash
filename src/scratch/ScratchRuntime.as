@@ -794,10 +794,10 @@ public class ScratchRuntime {
 
 		var filter:FileFilter;
 		if (Scratch.app.isExtensionDevMode) {
-			filter = new FileFilter('ScratchX Project', '*.sbx;*.sb;*.sb2;*.sb3');
+			filter = new FileFilter('ScratchX Project', '*.sbx;*.sb;*.sb2;*.sb3;*.fins');
 		}
 		else {
-			filter = new FileFilter('Scratch Project', '*.sb;*.sb2;*.sb3');
+			filter = new FileFilter('Scratch Project', '*.sb;*.sb2;*.sb3;*.fins');
 		}
 		Scratch.loadSingleFile(fileLoadHandler, filter);
 	}
