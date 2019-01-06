@@ -472,27 +472,27 @@ public class Interpreter {
 	private function initPrims():void {
 		primTable = new Dictionary();
 		// control
-		primTable["whenGreenFlag"]		= primNoop;
-		primTable["whenKeyPressed"]		= primNoop;
-		primTable["whenClicked"]		= primNoop;
-		primTable["whenSceneStarts"]	= primNoop;
-		primTable["wait:elapsed:from:"]	= primWait;
-		primTable["doForever"]			= function(b:*):* { startCmdList(b.subStack1, true); };
-		primTable["doRepeat"]			= primRepeat;
-		primTable["broadcast:"]			= function(b:*):* { broadcast(arg(b, 0), false); }
-		primTable["doBroadcastAndWait"]	= function(b:*):* { broadcast(arg(b, 0), true); }
-		primTable["whenIReceive"]		= primNoop;
+		primTable["event_whenflagclicked"]		= primNoop;
+		primTable["event_whenkeypressed"]		= primNoop;
+		primTable["event_whenthisspriteclicked"]		= primNoop;
+		primTable["event_whenbackdropswitchesto"]	= primNoop;
+		primTable["control_wait"]	= primWait;
+		primTable["control_forever"]			= function(b:*):* { startCmdList(b.subStack1, true); };
+		primTable["control_repeat"]			= primRepeat;
+		primTable["event_broadcast"]			= function(b:*):* { broadcast(arg(b, 0), false); }
+		primTable["event_broadcastandwait"]	= function(b:*):* { broadcast(arg(b, 0), true); }
+		primTable["event_whenbroadcastreceived"]		= primNoop;
 		primTable["doForeverIf"]		= function(b:*):* { if (arg(b, 0)) startCmdList(b.subStack1, true); else yield = true; };
-		primTable["doForLoop"]			= primForLoop;
-		primTable["doIf"]				= function(b:*):* { if (arg(b, 0)) startCmdList(b.subStack1); };
-		primTable["doIfElse"]			= function(b:*):* { if (arg(b, 0)) startCmdList(b.subStack1); else startCmdList(b.subStack2); };
-		primTable["doWaitUntil"]		= function(b:*):* { if (!arg(b, 0)) yield = true; };
-		primTable["doWhile"]			= function(b:*):* { if (arg(b, 0)) startCmdList(b.subStack1, true); };
-		primTable["doUntil"]			= function(b:*):* { if (!arg(b, 0)) startCmdList(b.subStack1, true); };
+		primTable["control_for_each"]			= primForLoop;
+		primTable["control_if"]				= function(b:*):* { if (arg(b, 0)) startCmdList(b.subStack1); };
+		primTable["control_if_else"]			= function(b:*):* { if (arg(b, 0)) startCmdList(b.subStack1); else startCmdList(b.subStack2); };
+		primTable["control_wait_until"]		= function(b:*):* { if (!arg(b, 0)) yield = true; };
+		primTable["control_while"]			= function(b:*):* { if (arg(b, 0)) startCmdList(b.subStack1, true); };
+		primTable["control_repeat_until"]			= function(b:*):* { if (!arg(b, 0)) startCmdList(b.subStack1, true); };
 		primTable["doReturn"]			= primReturn;
 		primTable["stopAll"]			= function(b:*):* { app.runtime.stopAll(); yield = true; };
-		primTable["stopScripts"]		= primStop;
-		primTable["warpSpeed"]			= primOldWarpSpeed;
+		primTable["control_stop"]		= primStop;
+		primTable["control_all_at_once"]			= primOldWarpSpeed;
 
 		// procedures
 		primTable[Specs.CALL]			= primCall;
@@ -617,7 +617,7 @@ public class Interpreter {
 			var newThreads:Array = [];
 			msg = msg.toLowerCase();
 			var findReceivers:Function = function (stack:Block, target:ScratchObj):void {
-				if ((stack.op == "whenIReceive") && (stack.args[0].argValue.toLowerCase() == msg)) {
+				if ((stack.op == "event_whenbroadcastreceived") && (stack.args[0].argValue.toLowerCase() == msg)) {
 					receivers.push([stack, target]);
 				}
 			}
@@ -642,7 +642,7 @@ public class Interpreter {
 		var pair:Array;
 		if (activeThread.firstTime) {
 			function findSceneHats(stack:Block, target:ScratchObj):void {
-				if ((stack.op == "whenSceneStarts") && (stack.args[0].argValue == sceneName)) {
+				if ((stack.op == "event_whenbackdropswitchesto") && (stack.args[0].argValue == sceneName)) {
 					receivers.push([stack, target]);
 				}
 			}

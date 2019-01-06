@@ -110,7 +110,7 @@ public class Watcher extends Sprite implements DragClient {
 
 	public function initForVar(target:ScratchObj, varName:String):void {
 		this.target = target;
-		this.cmd = "getVar:";
+		this.cmd = "data_variable";
 		this.param = varName;
 		this.mode = NORMAL_MODE;
 		// link to this watcher from its variable
@@ -121,13 +121,13 @@ public class Watcher extends Sprite implements DragClient {
 	}
 
 	public function changeVarName(varName:String):void {
-		if (cmd != "getVar:") return;
+		if (cmd != "data_variable") return;
 		param = varName;
 		setLabel((target.isStage) ? varName : (target.objName + ": " + varName));
 	}
 
 	public function isVarWatcherFor(target:ScratchObj, vName:String):Boolean {
-		return ((cmd == "getVar:") && (this.target == target) && (param == vName));
+		return ((cmd == "data_variable") && (this.target == target) && (param == vName));
 	}
 
 	public function isReporterWatcher(target:ScratchObj, cmd:String, param:String):Boolean {
@@ -170,19 +170,20 @@ public class Watcher extends Sprite implements DragClient {
 	private function updateLabel():void {
 		// update in case variable name or sprite name changes
 
-		if (cmd == 'getVar:') {
+		if (cmd == 'data_variable') {
 			if (target.isStage) {
 				setLabel(param);
 			} else {
 				setLabel(target.objName + ': ' + param);
 			}
-		} else if (cmd == 'sensor:')
-			setLabel(Translator.map(param + ' sensor value'));
+		}
+		// else if (cmd == 'sensor:')
+		// 	setLabel(Translator.map(param + ' sensor value'));
 		else if (cmd == 'sensorPressed:')
 			setLabel(Translator.map('sensor ' + param + '?'));
-		else if (cmd == 'timeAndDate')
+		else if (cmd == 'sensing_current')
 			setLabel(Translator.map(param));
-		else if (cmd == 'senseVideoMotion')
+		else if (cmd == 'sensing_videoon')
 			setLabel((target.isStage ? '' : target.objName + ': ') + Translator.map('video ' + param));
 		else
 			setLabel((target.isStage ? '' : target.objName + ': ') + specForCmd());
@@ -213,35 +214,35 @@ public class Watcher extends Sprite implements DragClient {
 			return (v == null) ? "unknown var: " + param : v.value;
 		}
 		var app:Scratch = runtime.app;
-		if (cmd == "senseVideoMotion") {
+		if (cmd == "sensing_videoon") {
 			var prim:Function = app.interp.getPrim(cmd);
 			if (prim == null) return 0;
-			var block:Block = new Block('video %s on %s', 'r', 0, 'senseVideoMotion', [param, target.objName]);
+			var block:Block = new Block('video %s on %s', 'r', 0, 'sensing_videoon', [param, target.objName]);
 			return prim(block);
 		}
 		if (target is ScratchSprite) {
 			switch(cmd) {
-				case "costumeIndex": return ScratchSprite(target).costumeNumber();
-				case "xpos": return ScratchSprite(target).scratchX;
-				case "ypos": return ScratchSprite(target).scratchY;
-				case "heading": return ScratchSprite(target).direction;
-				case "scale": return Math.round(ScratchSprite(target).getSize());
+				case "looks_costumenumbername": return ScratchSprite(target).costumeNumber();
+				case "motion_xposition": return ScratchSprite(target).scratchX;
+				case "motion_yposition": return ScratchSprite(target).scratchY;
+				case "motion_direction": return ScratchSprite(target).direction;
+				case "looks_size": return Math.round(ScratchSprite(target).getSize());
 			}
 		}
 		switch(cmd) {
-			case "backgroundIndex": return app.stagePane.costumeNumber();
-			case "sceneName": return app.stagePane.currentCostume().costumeName;
-			case "tempo": return app.stagePane.tempoBPM;
-			case "volume": return target.volume;
-			case "answer": return runtime.lastAnswer;
-			case "timer": return Math.round(10 * runtime.timer()) / 10; // round to 10's of seconds
-			case "soundLevel": return runtime.soundLevel();
-			case "isLoud": return runtime.isLoud();
-			case "sensor:": return runtime.getSensor(param);
+			case "looks_backdropnumbername": return app.stagePane.costumeNumber();
+			case "looks_backdropnumbername": return app.stagePane.currentCostume().costumeName;
+			case "music_getTempo": return app.stagePane.tempoBPM;
+			case "sound_volume": return target.volume;
+			case "sensing_answer": return runtime.lastAnswer;
+			case "sensing_timer": return Math.round(10 * runtime.timer()) / 10; // round to 10's of seconds
+			case "sensing_loudness": return runtime.soundLevel();
+			case "sensing_loud": return runtime.isLoud();
+			// case "sensor:": return runtime.getSensor(param);
 			case "sensorPressed:": return runtime.getBooleanSensor(param);
-			case "timeAndDate": return runtime.getTimeString(param);
-			case "xScroll": return app.stagePane.xScroll;
-			case "yScroll": return app.stagePane.yScroll;
+			case "sensing_current": return runtime.getTimeString(param);
+			case "motion_xscroll": return app.stagePane.xScroll;
+			case "motion_yscroll": return app.stagePane.yScroll;
 		}
 
 		if(ExtensionManager.hasExtensionPrefix(cmd)) {
@@ -255,7 +256,7 @@ public class Watcher extends Sprite implements DragClient {
 		return "unknown: " + cmd;
 	}
 
-	private function targetIsVariable():Boolean { return (cmd == "getVar:") }
+	private function targetIsVariable():Boolean { return (cmd == "data_variable") }
 
 	/* Layout */
 
@@ -463,7 +464,7 @@ public class Watcher extends Sprite implements DragClient {
 	}
 
 	public function readJSON(obj:Object):void {
-		if (obj.cmd == "getVar:") initForVar(obj.target, obj.param);
+		if (obj.cmd == "data_variable") initForVar(obj.target, obj.param);
 		else initWatcher(obj.target, obj.cmd, obj.param, obj.color);
 		sliderMin = obj.sliderMin;
 		sliderMax = obj.sliderMax;

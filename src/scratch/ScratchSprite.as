@@ -447,14 +447,14 @@ public class ScratchSprite extends ScratchObj {
 	}
 
 	public override function defaultArgsFor(op:String, specDefaults:Array):Array {
-		if ('gotoX:y:' == op) return [Math.round(scratchX), Math.round(scratchY)];
-		if ('glideSecs:toX:y:elapsed:from:' == op) return [1, Math.round(scratchX), Math.round(scratchY)];
-		if ('setSizeTo:' == op) return [Math.round(getSize() * 10) / 10];
-		if ((['startScene', 'startSceneAndWait', 'whenSceneStarts'].indexOf(op)) > -1) {
+		if ('motion_gotoxy' == op) return [Math.round(scratchX), Math.round(scratchY)];
+		if ('motion_glidesecstoxy' == op) return [1, Math.round(scratchX), Math.round(scratchY)];
+		if ('looks_setsizeto' == op) return [Math.round(getSize() * 10) / 10];
+		if ((['looks_switchbackdropto', 'looks_switchbackdroptoandwait', 'event_whenbackdropswitchesto'].indexOf(op)) > -1) {
 			var stg:ScratchStage = parent as ScratchStage;
 			if (stg) return [stg.costumes[stg.costumes.length - 1].costumeName];
 		}
-		if ('senseVideoMotion' == op) return ['motion', 'this sprite'];
+		if ('sensing_videoon' == op) return ['motion', 'this sprite'];
 		return super.defaultArgsFor(op, specDefaults);
 	}
 

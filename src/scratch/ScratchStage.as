@@ -891,9 +891,10 @@ public class ScratchStage extends ScratchObj {
 			if (o is ScratchSprite) {
 				addChild(ScratchSprite(o));
 			} else if (o.sliderMin != undefined) { // o is a watcher record
+				if (Scratch2Data.specMap[o.cmd]) o.cmd = Scratch2Data.specMap[o.cmd];
 				o.target = spriteNameMap[o.target]; // update target before instantiating
 				if (o.target) {
-					if (o.cmd == "senseVideoMotion" && o.param && o.param.indexOf(',')) {
+					if (o.cmd == "sensing_videoon" && o.param && o.param.indexOf(',')) {
 						// fix old video motion/direction watchers
 						var args:Array = o.param.split(',');
 						if (args[1] == 'this sprite') continue;

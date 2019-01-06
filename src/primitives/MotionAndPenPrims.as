@@ -44,37 +44,37 @@ public class MotionAndPenPrims {
 	}
 
 	public function addPrimsTo(primTable:Dictionary):void {
-		primTable["forward:"]			= primMove;
-		primTable["turnRight:"]			= primTurnRight;
-		primTable["turnLeft:"]			= primTurnLeft;
-		primTable["heading:"]			= primSetDirection;
-		primTable["pointTowards:"]		= primPointTowards;
-		primTable["gotoX:y:"]			= primGoTo;
-		primTable["gotoSpriteOrMouse:"]	= primGoToSpriteOrMouse;
-		primTable["glideSecs:toX:y:elapsed:from:"] = primGlide;
+		primTable["motion_movesteps"]			= primMove;
+		primTable["motion_turnright"]			= primTurnRight;
+		primTable["motion_turnleft"]			= primTurnLeft;
+		primTable["motion_pointindirection"]			= primSetDirection;
+		primTable["motion_pointtowards"]		= primPointTowards;
+		primTable["motion_gotoxy"]			= primGoTo;
+		primTable["motion_goto"]	= primGoToSpriteOrMouse;
+		primTable["motion_glidesecstoxy"] = primGlide;
 
-		primTable["changeXposBy:"]		= primChangeX;
-		primTable["xpos:"]				= primSetX;
-		primTable["changeYposBy:"]		= primChangeY;
-		primTable["ypos:"]				= primSetY;
+		primTable["motion_changexby"]		= primChangeX;
+		primTable["motion_setx"]				= primSetX;
+		primTable["motion_changeyby"]		= primChangeY;
+		primTable["motion_sety"]				= primSetY;
 
-		primTable["bounceOffEdge"]		= primBounceOffEdge;
+		primTable["motion_ifonedgebounce"]		= primBounceOffEdge;
 
-		primTable["xpos"]				= primXPosition;
-		primTable["ypos"]				= primYPosition;
-		primTable["heading"]			= primDirection;
+		primTable["motion_xposition"]				= primXPosition;
+		primTable["motion_yposition"]				= primYPosition;
+		primTable["motion_direction"]			= primDirection;
 
-		primTable["clearPenTrails"]		= primClear;
-		primTable["putPenDown"]			= primPenDown;
-		primTable["putPenUp"]			= primPenUp;
-		primTable["penColor:"]			= primSetPenColor;
-		primTable["setPenHueTo:"]		= primSetPenHue;
-		primTable["changePenHueBy:"]	= primChangePenHue;
-		primTable["setPenShadeTo:"]		= primSetPenShade;
-		primTable["changePenShadeBy:"]	= primChangePenShade;
-		primTable["penSize:"]			= primSetPenSize;
-		primTable["changePenSizeBy:"]	= primChangePenSize;
-		primTable["stampCostume"]		= primStamp;
+		primTable["pen_clear"]		= primClear;
+		primTable["pen_penDown"]			= primPenDown;
+		primTable["pen_penUp"]			= primPenUp;
+		primTable["pen_setPenColorToColor"]			= primSetPenColor;
+		primTable["pen_setPenHueToNumber"]		= primSetPenHue;
+		primTable["pen_changePenHueBy"]	= primChangePenHue;
+		primTable["pen_setPenShadeToNumber"]		= primSetPenShade;
+		primTable["pen_changePenShadeBy"]	= primChangePenShade;
+		primTable["pen_setPenSizeTo"]			= primSetPenSize;
+		primTable["pen_changePenSizeBy"]	= primChangePenSize;
+		primTable["pen_stamp"]		= primStamp;
 	}
 
 	private function primMove(b:Block):void {

@@ -45,38 +45,38 @@ public class Primitives {
 
 	public function addPrimsTo(primTable:Dictionary):void {
 		// operators
-		primTable["+"]				= function(b:*):* { return interp.numarg(b, 0) + interp.numarg(b, 1) };
-		primTable["-"]				= function(b:*):* { return interp.numarg(b, 0) - interp.numarg(b, 1) };
-		primTable["*"]				= function(b:*):* { return interp.numarg(b, 0) * interp.numarg(b, 1) };
-		primTable["/"]				= function(b:*):* { return interp.numarg(b, 0) / interp.numarg(b, 1) };
-		primTable["randomFrom:to:"]	= primRandom;
-		primTable["<"]				= function(b:*):* { return compare(interp.arg(b, 0), interp.arg(b, 1)) < 0 };
-		primTable["="]				= function(b:*):* { return compare(interp.arg(b, 0), interp.arg(b, 1)) == 0 };
-		primTable[">"]				= function(b:*):* { return compare(interp.arg(b, 0), interp.arg(b, 1)) > 0 };
-		primTable["&"]				= function(b:*):* { return interp.arg(b, 0) && interp.arg(b, 1) };
-		primTable["|"]				= function(b:*):* { return interp.arg(b, 0) || interp.arg(b, 1) };
-		primTable["not"]			= function(b:*):* { return !interp.arg(b, 0) };
+		primTable["operator_add"]				= function(b:*):* { return interp.numarg(b, 0) + interp.numarg(b, 1) };
+		primTable["operator_subtract"]				= function(b:*):* { return interp.numarg(b, 0) - interp.numarg(b, 1) };
+		primTable["operator_multiply"]				= function(b:*):* { return interp.numarg(b, 0) * interp.numarg(b, 1) };
+		primTable["operator_divide"]				= function(b:*):* { return interp.numarg(b, 0) / interp.numarg(b, 1) };
+		primTable["operator_random"]	= primRandom;
+		primTable["operator_lt"]				= function(b:*):* { return compare(interp.arg(b, 0), interp.arg(b, 1)) < 0 };
+		primTable["operator_equals"]				= function(b:*):* { return compare(interp.arg(b, 0), interp.arg(b, 1)) == 0 };
+		primTable["operator_gt"]				= function(b:*):* { return compare(interp.arg(b, 0), interp.arg(b, 1)) > 0 };
+		primTable["operator_and"]				= function(b:*):* { return interp.arg(b, 0) && interp.arg(b, 1) };
+		primTable["operator_or"]				= function(b:*):* { return interp.arg(b, 0) || interp.arg(b, 1) };
+		primTable["operator_not"]			= function(b:*):* { return !interp.arg(b, 0) };
 		primTable["abs"]			= function(b:*):* { return Math.abs(interp.numarg(b, 0)) };
 		primTable["sqrt"]			= function(b:*):* { return Math.sqrt(interp.numarg(b, 0)) };
 
-		primTable["concatenate:with:"]	= function(b:*):* { return ("" + interp.arg(b, 0) + interp.arg(b, 1)).substr(0, 10240); };
-		primTable["letter:of:"]			= primLetterOf;
-		primTable["stringLength:"]		= function(b:*):* { return String(interp.arg(b, 0)).length };
+		primTable["operator_join"]	= function(b:*):* { return ("" + interp.arg(b, 0) + interp.arg(b, 1)).substr(0, 10240); };
+		primTable["operator_letter_of"]			= primLetterOf;
+		primTable["operator_length"]		= function(b:*):* { return String(interp.arg(b, 0)).length };
 
-		primTable["%"]					= primModulo;
-		primTable["rounded"]			= function(b:*):* { return Math.round(interp.numarg(b, 0)) };
-		primTable["computeFunction:of:"] = primMathFunction;
+		primTable["operator_mod"]					= primModulo;
+		primTable["operator_round"]			= function(b:*):* { return Math.round(interp.numarg(b, 0)) };
+		primTable["operator_mathop"] = primMathFunction;
 
 		// clone
-		primTable["createCloneOf"]		= primCreateCloneOf;
-		primTable["deleteClone"]		= primDeleteClone;
-		primTable["whenCloned"]			= interp.primNoop;
+		primTable["control_create_clone_of"]		= primCreateCloneOf;
+		primTable["control_delete_this_clone"]		= primDeleteClone;
+		primTable["control_start_as_clone"]			= interp.primNoop;
 
 		// testing (for development)
 		primTable["NOOP"]				= interp.primNoop;
-		primTable["COUNT"]				= function(b:*):* { return counter };
-		primTable["INCR_COUNT"]			= function(b:*):* { counter++ };
-		primTable["CLR_COUNT"]			= function(b:*):* { counter = 0 };
+		primTable["control_get_counter"]				= function(b:*):* { return counter };
+		primTable["control_incr_counter"]			= function(b:*):* { counter++ };
+		primTable["control_clear_counter"]			= function(b:*):* { counter = 0 };
 
 		new LooksPrims(app, interp).addPrimsTo(primTable);
 		new MotionAndPenPrims(app, interp).addPrimsTo(primTable);
@@ -189,7 +189,7 @@ public class Primitives {
 		clone.objName = proto.objName;
 		clone.isClone = true;
 		for each (var stack:Block in clone.scripts) {
-			if (stack.op == "whenCloned") {
+			if (stack.op == "control_start_as_clone") {
 				interp.startThreadForClone(stack, clone);
 			}
 		}

@@ -312,40 +312,40 @@ public class ScratchObj extends Sprite {
 		// For most ops, this will simply return the array of default arg values from the command spec.
 		var sprites:Array;
 
-		if ((['broadcast:', 'doBroadcastAndWait', 'whenIReceive'].indexOf(op)) > -1) {
+		if ((['event_broadcast', 'event_broadcastandwait', 'event_whenbroadcastreceived'].indexOf(op)) > -1) {
 			var msgs:Array = Scratch.app.runtime.collectBroadcasts();
 			return [msgs[0]];
 		}
-		if ((['lookLike:', 'startScene', 'startSceneAndWait', 'whenSceneStarts'].indexOf(op)) > -1) {
+		if ((['looks_switchcostumeto', 'looks_switchbackdropto', 'looks_switchbackdroptoandwait', 'event_whenbackdropswitchesto'].indexOf(op)) > -1) {
 			return [costumes[costumes.length - 1].costumeName];
 		}
-		if ((['playSound:', 'doPlaySoundAndWait'].indexOf(op)) > -1) {
+		if ((['sound_play', 'sound_playuntildone'].indexOf(op)) > -1) {
 			return (sounds.length > 0) ? [sounds[sounds.length - 1].soundName] : [''];
 		}
-		if ('createCloneOf' == op) {
+		if ('control_create_clone_of' == op) {
 			if (!isStage) return ['_myself_'];
 			sprites = Scratch.app.stagePane.sprites();
 			return (sprites.length > 0) ? [sprites[sprites.length - 1].objName] : [''];
 		}
-		if ('getAttribute:of:' == op) {
+		if ('sensing_of' == op) {
 			sprites = Scratch.app.stagePane.sprites();
-			return (sprites.length > 0) ? ['x position', sprites[sprites.length - 1].objName] : ['volume', '_stage_'];
+			return (sprites.length > 0) ? ['x position', sprites[sprites.length - 1].objName] : ['sound_volume', '_stage_'];
 		}
 
-		if ('setVar:to:' == op) return [defaultVarName(), 0];
-		if ('changeVar:by:' == op) return [defaultVarName(), 1];
-		if ('showVariable:' == op) return [defaultVarName()];
-		if ('hideVariable:' == op) return [defaultVarName()];
+		if ('data_setvariableto' == op) return [defaultVarName(), 0];
+		if ('data_changevariableby' == op) return [defaultVarName(), 1];
+		if ('data_showvariable' == op) return [defaultVarName()];
+		if ('data_hidevariable' == op) return [defaultVarName()];
 
-		if ('append:toList:' == op) return ['thing', defaultListName()];
-		if ('deleteLine:ofList:' == op) return [1, defaultListName()];
-		if ('insert:at:ofList:' == op) return ['thing', 1, defaultListName()];
-		if ('setLine:ofList:to:' == op) return [1, defaultListName(), 'thing'];
-		if ('getLine:ofList:' == op) return [1, defaultListName()];
-		if ('lineCountOfList:' == op) return [defaultListName()];
-		if ('list:contains:' == op) return [defaultListName(), 'thing'];
-		if ('showList:' == op) return [defaultListName()];
-		if ('hideList:' == op) return [defaultListName()];
+		if ('data_addtolist' == op) return ['thing', defaultListName()];
+		if ('data_deleteoflist' == op) return [1, defaultListName()];
+		if ('data_insertatlist' == op) return ['thing', 1, defaultListName()];
+		if ('data_replaceitemoflist' == op) return [1, defaultListName(), 'thing'];
+		if ('data_itemoflist' == op) return [1, defaultListName()];
+		if ('data_lengthoflist' == op) return [defaultListName()];
+		if ('data_listcontainsitem' == op) return [defaultListName(), 'thing'];
+		if ('data_showlist' == op) return [defaultListName()];
+		if ('data_hidelist' == op) return [defaultListName()];
 
 		return specDefaults;
 	}

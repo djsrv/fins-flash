@@ -1,4 +1,5 @@
-/* Copyright (c) 2018, Massachusetts Institute of Technology, Dylan Servilla
+/*
+ * Copyright (c) 2019, Massachusetts Institute of Technology, Dylan Servilla
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,28 +36,27 @@ package util {
 
 public class Scratch3Data {
 
-    public static const VAR_SCALAR_TYPE = '';
-    public static const VAR_LIST_TYPE = 'list';
-    public static const VAR_BROADCAST_MESSAGE_TYPE = 'broadcast_msg';
+    public static const VAR_SCALAR_TYPE:String = '';
+    public static const VAR_LIST_TYPE:String = 'list';
+    public static const VAR_BROADCAST_MESSAGE_TYPE:String = 'broadcast_msg';
 
-    public static const INPUT_SAME_BLOCK_SHADOW = 1; // unobscured shadow
-    public static const INPUT_BLOCK_NO_SHADOW = 2; // no shadow
-    public static const INPUT_DIFF_BLOCK_SHADOW = 3; // obscured shadow
+    public static const INPUT_SAME_BLOCK_SHADOW:int = 1; // unobscured shadow
+    public static const INPUT_BLOCK_NO_SHADOW:int = 2; // no shadow
+    public static const INPUT_DIFF_BLOCK_SHADOW:int = 3; // obscured shadow
 
-    public static const MATH_NUM_PRIMITIVE = 4;
-    public static const POSITIVE_NUM_PRIMITIVE = 5;
-    public static const WHOLE_NUM_PRIMITIVE = 6;
-    public static const INTEGER_NUM_PRIMITIVE = 7;
-    public static const ANGLE_NUM_PRIMITIVE = 8;
-    public static const COLOR_PICKER_PRIMITIVE = 9;
-    public static const TEXT_PRIMITIVE = 10;
-    public static const BROADCAST_PRIMITIVE = 11;
-    public static const VAR_PRIMITIVE = 12;
-    public static const LIST_PRIMITIVE = 13;
+    public static const MATH_NUM_PRIMITIVE:int = 4;
+    public static const POSITIVE_NUM_PRIMITIVE:int = 5;
+    public static const WHOLE_NUM_PRIMITIVE:int = 6;
+    public static const INTEGER_NUM_PRIMITIVE:int = 7;
+    public static const ANGLE_NUM_PRIMITIVE:int = 8;
+    public static const COLOR_PICKER_PRIMITIVE:int = 9;
+    public static const TEXT_PRIMITIVE:int = 10;
+    public static const BROADCAST_PRIMITIVE:int = 11;
+    public static const VAR_PRIMITIVE:int = 12;
+    public static const LIST_PRIMITIVE:int = 13;
 
     public static const specMap = {
-        'forward:': {
-            'opcode': 'motion_movesteps',
+        'motion_movesteps': {
             'argMap': [
                 {
                     'type': 'input',
@@ -65,8 +65,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'turnRight:': {
-            'opcode': 'motion_turnright',
+        'motion_turnright': {
             'argMap': [
                 {
                     'type': 'input',
@@ -75,8 +74,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'turnLeft:': {
-            'opcode': 'motion_turnleft',
+        'motion_turnleft': {
             'argMap': [
                 {
                     'type': 'input',
@@ -85,8 +83,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'heading:': {
-            'opcode': 'motion_pointindirection',
+        'motion_pointindirection': {
             'argMap': [
                 {
                     'type': 'input',
@@ -95,8 +92,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'pointTowards:': {
-            'opcode': 'motion_pointtowards',
+        'motion_pointtowards': {
             'argMap': [
                 {
                     'type': 'input',
@@ -105,8 +101,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'gotoX:y:': {
-            'opcode': 'motion_gotoxy',
+        'motion_gotoxy': {
             'argMap': [
                 {
                     'type': 'input',
@@ -120,8 +115,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'gotoSpriteOrMouse:': {
-            'opcode': 'motion_goto',
+        'motion_goto': {
             'argMap': [
                 {
                     'type': 'input',
@@ -130,8 +124,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'glideSecs:toX:y:elapsed:from:': {
-            'opcode': 'motion_glidesecstoxy',
+        'motion_glidesecstoxy': {
             'argMap': [
                 {
                     'type': 'input',
@@ -150,8 +143,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'changeXposBy:': {
-            'opcode': 'motion_changexby',
+        'motion_changexby': {
             'argMap': [
                 {
                     'type': 'input',
@@ -160,8 +152,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'xpos:': {
-            'opcode': 'motion_setx',
+        'motion_setx': {
             'argMap': [
                 {
                     'type': 'input',
@@ -170,8 +161,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'changeYposBy:': {
-            'opcode': 'motion_changeyby',
+        'motion_changeyby': {
             'argMap': [
                 {
                     'type': 'input',
@@ -180,8 +170,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'ypos:': {
-            'opcode': 'motion_sety',
+        'motion_sety': {
             'argMap': [
                 {
                     'type': 'input',
@@ -190,13 +179,11 @@ public class Scratch3Data {
                 }
             ]
         },
-        'bounceOffEdge': {
-            'opcode': 'motion_ifonedgebounce',
+        'motion_ifonedgebounce': {
             'argMap': [
             ]
         },
-        'setRotationStyle': {
-            'opcode': 'motion_setrotationstyle',
+        'motion_setrotationstyle': {
             'argMap': [
                 {
                     'type': 'field',
@@ -204,23 +191,19 @@ public class Scratch3Data {
                 }
             ]
         },
-        'xpos': {
-            'opcode': 'motion_xposition',
+        'motion_xposition': {
             'argMap': [
             ]
         },
-        'ypos': {
-            'opcode': 'motion_yposition',
+        'motion_yposition': {
             'argMap': [
             ]
         },
-        'heading': {
-            'opcode': 'motion_direction',
+        'motion_direction': {
             'argMap': [
             ]
         },
-        'scrollRight': {
-            'opcode': 'motion_scroll_right',
+        'motion_scroll_right': {
             'argMap': [
                 {
                     'type': 'input',
@@ -229,8 +212,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'scrollUp': {
-            'opcode': 'motion_scroll_up',
+        'motion_scroll_up': {
             'argMap': [
                 {
                     'type': 'input',
@@ -239,8 +221,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'scrollAlign': {
-            'opcode': 'motion_align_scene',
+        'motion_align_scene': {
             'argMap': [
                 {
                     'type': 'field',
@@ -248,18 +229,15 @@ public class Scratch3Data {
                 }
             ]
         },
-        'xScroll': {
-            'opcode': 'motion_xscroll',
+        'motion_xscroll': {
             'argMap': [
             ]
         },
-        'yScroll': {
-            'opcode': 'motion_yscroll',
+        'motion_yscroll': {
             'argMap': [
             ]
         },
-        'say:duration:elapsed:from:': {
-            'opcode': 'looks_sayforsecs',
+        'looks_sayforsecs': {
             'argMap': [
                 {
                     'type': 'input',
@@ -273,8 +251,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'say:': {
-            'opcode': 'looks_say',
+        'looks_say': {
             'argMap': [
                 {
                     'type': 'input',
@@ -283,8 +260,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'think:duration:elapsed:from:': {
-            'opcode': 'looks_thinkforsecs',
+        'looks_thinkforsecs': {
             'argMap': [
                 {
                     'type': 'input',
@@ -298,8 +274,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'think:': {
-            'opcode': 'looks_think',
+        'looks_think': {
             'argMap': [
                 {
                     'type': 'input',
@@ -308,23 +283,19 @@ public class Scratch3Data {
                 }
             ]
         },
-        'show': {
-            'opcode': 'looks_show',
+        'looks_show': {
             'argMap': [
             ]
         },
-        'hide': {
-            'opcode': 'looks_hide',
+        'looks_hide': {
             'argMap': [
             ]
         },
-        'hideAll': {
-            'opcode': 'looks_hideallsprites',
+        'looks_hideallsprites': {
             'argMap': [
             ]
         },
-        'lookLike:': {
-            'opcode': 'looks_switchcostumeto',
+        'looks_switchcostumeto': {
             'argMap': [
                 {
                     'type': 'input',
@@ -333,13 +304,11 @@ public class Scratch3Data {
                 }
             ]
         },
-        'nextCostume': {
-            'opcode': 'looks_nextcostume',
+        'looks_nextcostume': {
             'argMap': [
             ]
         },
-        'startScene': {
-            'opcode': 'looks_switchbackdropto',
+        'looks_switchbackdropto': {
             'argMap': [
                 {
                     'type': 'input',
@@ -348,8 +317,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'changeGraphicEffect:by:': {
-            'opcode': 'looks_changeeffectby',
+        'looks_changeeffectby': {
             'argMap': [
                 {
                     'type': 'field',
@@ -362,8 +330,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'setGraphicEffect:to:': {
-            'opcode': 'looks_seteffectto',
+        'looks_seteffectto': {
             'argMap': [
                 {
                     'type': 'field',
@@ -376,13 +343,11 @@ public class Scratch3Data {
                 }
             ]
         },
-        'filterReset': {
-            'opcode': 'looks_cleargraphiceffects',
+        'looks_cleargraphiceffects': {
             'argMap': [
             ]
         },
-        'changeSizeBy:': {
-            'opcode': 'looks_changesizeby',
+        'looks_changesizeby': {
             'argMap': [
                 {
                     'type': 'input',
@@ -391,8 +356,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'setSizeTo:': {
-            'opcode': 'looks_setsizeto',
+        'looks_setsizeto': {
             'argMap': [
                 {
                     'type': 'input',
@@ -401,8 +365,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'changeStretchBy:': {
-            'opcode': 'looks_changestretchby',
+        'looks_changestretchby': {
             'argMap': [
                 {
                     'type': 'input',
@@ -411,8 +374,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'setStretchTo:': {
-            'opcode': 'looks_setstretchto',
+        'looks_setstretchto': {
             'argMap': [
                 {
                     'type': 'input',
@@ -421,13 +383,11 @@ public class Scratch3Data {
                 }
             ]
         },
-        'comeToFront': {
-            'opcode': 'looks_gotofrontback',
+        'looks_gotofrontback': {
             'argMap': [
             ]
         },
-        'goBackByLayers:': {
-            'opcode': 'looks_goforwardbackwardlayers',
+        'looks_goforwardbackwardlayers': {
             'argMap': [
                 {
                     'type': 'input',
@@ -436,28 +396,23 @@ public class Scratch3Data {
                 }
             ]
         },
-        'costumeIndex': {
-            'opcode': 'looks_costumenumbername',
+        'looks_costumenumbername': {
             'argMap': [
             ]
         },
-        'costumeName': {
-            'opcode': 'looks_costumenumbername',
+        'looks_costumenumbername': {
             'argMap': [
             ]
         },
-        'sceneName': {
-            'opcode': 'looks_backdropnumbername',
+        'looks_backdropnumbername': {
             'argMap': [
             ]
         },
-        'scale': {
-            'opcode': 'looks_size',
+        'looks_size': {
             'argMap': [
             ]
         },
-        'startSceneAndWait': {
-            'opcode': 'looks_switchbackdroptoandwait',
+        'looks_switchbackdroptoandwait': {
             'argMap': [
                 {
                     'type': 'input',
@@ -466,18 +421,15 @@ public class Scratch3Data {
                 }
             ]
         },
-        'nextScene': {
-            'opcode': 'looks_nextbackdrop',
+        'looks_nextbackdrop': {
             'argMap': [
             ]
         },
-        'backgroundIndex': {
-            'opcode': 'looks_backdropnumbername',
+        'looks_backdropnumbername': {
             'argMap': [
             ]
         },
-        'playSound:': {
-            'opcode': 'sound_play',
+        'sound_play': {
             'argMap': [
                 {
                     'type': 'input',
@@ -486,8 +438,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'doPlaySoundAndWait': {
-            'opcode': 'sound_playuntildone',
+        'sound_playuntildone': {
             'argMap': [
                 {
                     'type': 'input',
@@ -496,13 +447,11 @@ public class Scratch3Data {
                 }
             ]
         },
-        'stopAllSounds': {
-            'opcode': 'sound_stopallsounds',
+        'sound_stopallsounds': {
             'argMap': [
             ]
         },
-        'playDrum': {
-            'opcode': 'music_playDrumForBeats',
+        'music_playDrumForBeats': {
             'argMap': [
                 {
                     'type': 'input',
@@ -516,8 +465,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'rest:elapsed:from:': {
-            'opcode': 'music_restForBeats',
+        'music_restForBeats': {
             'argMap': [
                 {
                     'type': 'input',
@@ -526,8 +474,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'noteOn:duration:elapsed:from:': {
-            'opcode': 'music_playNoteForBeats',
+        'music_playNoteForBeats': {
             'argMap': [
                 {
                     'type': 'input',
@@ -541,8 +488,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'instrument:': {
-            'opcode': 'music_setInstrument',
+        'music_setInstrument': {
             'argMap': [
                 {
                     'type': 'input',
@@ -551,8 +497,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'midiInstrument:': {
-            'opcode': 'music_midiSetInstrument',
+        'music_midiSetInstrument': {
             'argMap': [
                 {
                     'type': 'input',
@@ -561,8 +506,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'changeVolumeBy:': {
-            'opcode': 'sound_changevolumeby',
+        'sound_changevolumeby': {
             'argMap': [
                 {
                     'type': 'input',
@@ -571,8 +515,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'setVolumeTo:': {
-            'opcode': 'sound_setvolumeto',
+        'sound_setvolumeto': {
             'argMap': [
                 {
                     'type': 'input',
@@ -581,13 +524,11 @@ public class Scratch3Data {
                 }
             ]
         },
-        'volume': {
-            'opcode': 'sound_volume',
+        'sound_volume': {
             'argMap': [
             ]
         },
-        'changeTempoBy:': {
-            'opcode': 'music_changeTempo',
+        'music_changeTempo': {
             'argMap': [
                 {
                     'type': 'input',
@@ -596,8 +537,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'setTempoTo:': {
-            'opcode': 'music_setTempo',
+        'music_setTempo': {
             'argMap': [
                 {
                     'type': 'input',
@@ -606,33 +546,27 @@ public class Scratch3Data {
                 }
             ]
         },
-        'tempo': {
-            'opcode': 'music_getTempo',
+        'music_getTempo': {
             'argMap': [
             ]
         },
-        'clearPenTrails': {
-            'opcode': 'pen_clear',
+        'pen_clear': {
             'argMap': [
             ]
         },
-        'stampCostume': {
-            'opcode': 'pen_stamp',
+        'pen_stamp': {
             'argMap': [
             ]
         },
-        'putPenDown': {
-            'opcode': 'pen_penDown',
+        'pen_penDown': {
             'argMap': [
             ]
         },
-        'putPenUp': {
-            'opcode': 'pen_penUp',
+        'pen_penUp': {
             'argMap': [
             ]
         },
-        'penColor:': {
-            'opcode': 'pen_setPenColorToColor',
+        'pen_setPenColorToColor': {
             'argMap': [
                 {
                     'type': 'input',
@@ -641,8 +575,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'changePenHueBy:': {
-            'opcode': 'pen_changePenHueBy',
+        'pen_changePenHueBy': {
             'argMap': [
                 {
                     'type': 'input',
@@ -651,8 +584,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'setPenHueTo:': {
-            'opcode': 'pen_setPenHueToNumber',
+        'pen_setPenHueToNumber': {
             'argMap': [
                 {
                     'type': 'input',
@@ -661,8 +593,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'changePenShadeBy:': {
-            'opcode': 'pen_changePenShadeBy',
+        'pen_changePenShadeBy': {
             'argMap': [
                 {
                     'type': 'input',
@@ -671,8 +602,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'setPenShadeTo:': {
-            'opcode': 'pen_setPenShadeToNumber',
+        'pen_setPenShadeToNumber': {
             'argMap': [
                 {
                     'type': 'input',
@@ -681,8 +611,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'changePenSizeBy:': {
-            'opcode': 'pen_changePenSizeBy',
+        'pen_changePenSizeBy': {
             'argMap': [
                 {
                     'type': 'input',
@@ -691,8 +620,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'penSize:': {
-            'opcode': 'pen_setPenSizeTo',
+        'pen_setPenSizeTo': {
             'argMap': [
                 {
                     'type': 'input',
@@ -701,8 +629,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'senseVideoMotion': {
-            'opcode': 'videoSensing_videoOn',
+        'videoSensing_videoOn': {
             'argMap': [
                 {
                     'type': 'input',
@@ -716,13 +643,11 @@ public class Scratch3Data {
                 }
             ]
         },
-        'whenGreenFlag': {
-            'opcode': 'event_whenflagclicked',
+        'event_whenflagclicked': {
             'argMap': [
             ]
         },
-        'whenKeyPressed': {
-            'opcode': 'event_whenkeypressed',
+        'event_whenkeypressed': {
             'argMap': [
                 {
                     'type': 'field',
@@ -730,13 +655,11 @@ public class Scratch3Data {
                 }
             ]
         },
-        'whenClicked': {
-            'opcode': 'event_whenthisspriteclicked',
+        'event_whenthisspriteclicked': {
             'argMap': [
             ]
         },
-        'whenSceneStarts': {
-            'opcode': 'event_whenbackdropswitchesto',
+        'event_whenbackdropswitchesto': {
             'argMap': [
                 {
                     'type': 'field',
@@ -774,8 +697,7 @@ public class Scratch3Data {
         //         ]
         //     };
         // },
-        'whenIReceive': {
-            'opcode': 'event_whenbroadcastreceived',
+        'event_whenbroadcastreceived': {
             'argMap': [
                 {
                     'type': 'field',
@@ -784,8 +706,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'broadcast:': {
-            'opcode': 'event_broadcast',
+        'event_broadcast': {
             'argMap': [
                 {
                     'type': 'input',
@@ -795,8 +716,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'doBroadcastAndWait': {
-            'opcode': 'event_broadcastandwait',
+        'event_broadcastandwait': {
             'argMap': [
                 {
                     'type': 'input',
@@ -806,8 +726,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'wait:elapsed:from:': {
-            'opcode': 'control_wait',
+        'control_wait': {
             'argMap': [
                 {
                     'type': 'input',
@@ -816,8 +735,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'doRepeat': {
-            'opcode': 'control_repeat',
+        'control_repeat': {
             'argMap': [
                 {
                     'type': 'input',
@@ -831,8 +749,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'doForever': {
-            'opcode': 'control_forever',
+        'control_forever': {
             'argMap': [
                 {
                     'type': 'input',
@@ -841,8 +758,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'doIf': {
-            'opcode': 'control_if',
+        'control_if': {
             'argMap': [
                 {
                     'type': 'input',
@@ -856,8 +772,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'doIfElse': {
-            'opcode': 'control_if_else',
+        'control_if_else': {
             'argMap': [
                 {
                     'type': 'input',
@@ -876,8 +791,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'doWaitUntil': {
-            'opcode': 'control_wait_until',
+        'control_wait_until': {
             'argMap': [
                 {
                     'type': 'input',
@@ -886,23 +800,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'doUntil': {
-            'opcode': 'control_repeat_until',
-            'argMap': [
-                {
-                    'type': 'input',
-                    'inputOp': 'boolean',
-                    'inputName': 'CONDITION'
-                },
-                {
-                    'type': 'input',
-                    'inputOp': 'substack',
-                    'inputName': 'SUBSTACK'
-                }
-            ]
-        },
-        'doWhile': {
-            'opcode': 'control_while',
+        'control_repeat_until': {
             'argMap': [
                 {
                     'type': 'input',
@@ -916,8 +814,21 @@ public class Scratch3Data {
                 }
             ]
         },
-        'doForLoop': {
-            'opcode': 'control_for_each',
+        'control_while': {
+            'argMap': [
+                {
+                    'type': 'input',
+                    'inputOp': 'boolean',
+                    'inputName': 'CONDITION'
+                },
+                {
+                    'type': 'input',
+                    'inputOp': 'substack',
+                    'inputName': 'SUBSTACK'
+                }
+            ]
+        },
+        'control_for_each': {
             'argMap': [
                 {
                     'type': 'field',
@@ -935,8 +846,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'stopScripts': {
-            'opcode': 'control_stop',
+        'control_stop': {
             'argMap': [
                 {
                     'type': 'field',
@@ -944,13 +854,11 @@ public class Scratch3Data {
                 }
             ]
         },
-        'whenCloned': {
-            'opcode': 'control_start_as_clone',
+        'control_start_as_clone': {
             'argMap': [
             ]
         },
-        'createCloneOf': {
-            'opcode': 'control_create_clone_of',
+        'control_create_clone_of': {
             'argMap': [
                 {
                     'type': 'input',
@@ -959,28 +867,23 @@ public class Scratch3Data {
                 }
             ]
         },
-        'deleteClone': {
-            'opcode': 'control_delete_this_clone',
+        'control_delete_this_clone': {
             'argMap': [
             ]
         },
-        'COUNT': {
-            'opcode': 'control_get_counter',
+        'control_get_counter': {
             'argMap': [
             ]
         },
-        'INCR_COUNT': {
-            'opcode': 'control_incr_counter',
+        'control_incr_counter': {
             'argMap': [
             ]
         },
-        'CLR_COUNT': {
-            'opcode': 'control_clear_counter',
+        'control_clear_counter': {
             'argMap': [
             ]
         },
-        'warpSpeed': {
-            'opcode': 'control_all_at_once',
+        'control_all_at_once': {
             'argMap': [
                 {
                     'type': 'input',
@@ -989,8 +892,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'touching:': {
-            'opcode': 'sensing_touchingobject',
+        'sensing_touchingobject': {
             'argMap': [
                 {
                     'type': 'input',
@@ -999,8 +901,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'touchingColor:': {
-            'opcode': 'sensing_touchingcolor',
+        'sensing_touchingcolor': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1009,8 +910,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'color:sees:': {
-            'opcode': 'sensing_coloristouchingcolor',
+        'sensing_coloristouchingcolor': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1024,8 +924,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'distanceTo:': {
-            'opcode': 'sensing_distanceto',
+        'sensing_distanceto': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1034,8 +933,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'doAsk': {
-            'opcode': 'sensing_askandwait',
+        'sensing_askandwait': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1044,13 +942,11 @@ public class Scratch3Data {
                 }
             ]
         },
-        'answer': {
-            'opcode': 'sensing_answer',
+        'sensing_answer': {
             'argMap': [
             ]
         },
-        'keyPressed:': {
-            'opcode': 'sensing_keypressed',
+        'sensing_keypressed': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1059,33 +955,27 @@ public class Scratch3Data {
                 }
             ]
         },
-        'mousePressed': {
-            'opcode': 'sensing_mousedown',
+        'sensing_mousedown': {
             'argMap': [
             ]
         },
-        'mouseX': {
-            'opcode': 'sensing_mousex',
+        'sensing_mousex': {
             'argMap': [
             ]
         },
-        'mouseY': {
-            'opcode': 'sensing_mousey',
+        'sensing_mousey': {
             'argMap': [
             ]
         },
-        'soundLevel': {
-            'opcode': 'sensing_loudness',
+        'sensing_loudness': {
             'argMap': [
             ]
         },
-        'isLoud': {
-            'opcode': 'sensing_loud',
+        'sensing_loud': {
             'argMap': [
             ]
         },
-        'senseVideoMotion': {
-            'opcode': 'sensing_videoon',
+        'sensing_videoon': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1099,8 +989,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'setVideoState': {
-            'opcode': 'videoSensing_videoToggle',
+        'videoSensing_videoToggle': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1109,8 +998,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'setVideoTransparency': {
-            'opcode': 'videoSensing_setVideoTransparency',
+        'videoSensing_setVideoTransparency': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1119,18 +1007,15 @@ public class Scratch3Data {
                 }
             ]
         },
-        'timer': {
-            'opcode': 'sensing_timer',
+        'sensing_timer': {
             'argMap': [
             ]
         },
-        'timerReset': {
-            'opcode': 'sensing_resettimer',
+        'sensing_resettimer': {
             'argMap': [
             ]
         },
-        'getAttribute:of:': {
-            'opcode': 'sensing_of',
+        'sensing_of': {
             'argMap': [
                 {
                     'type': 'field',
@@ -1143,8 +1028,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'timeAndDate': {
-            'opcode': 'sensing_current',
+        'sensing_current': {
             'argMap': [
                 {
                     'type': 'field',
@@ -1152,23 +1036,19 @@ public class Scratch3Data {
                 }
             ]
         },
-        'timestamp': {
-            'opcode': 'sensing_dayssince2000',
+        'sensing_dayssince2000': {
             'argMap': [
             ]
         },
-        'getUserName': {
-            'opcode': 'sensing_username',
+        'sensing_username': {
             'argMap': [
             ]
         },
-        'getUserId': {
-            'opcode': 'sensing_userid',
+        'sensing_userid': {
             'argMap': [
             ]
         },
-        '+': {
-            'opcode': 'operator_add',
+        'operator_add': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1182,8 +1062,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        '-': {
-            'opcode': 'operator_subtract',
+        'operator_subtract': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1197,8 +1076,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        '*': {
-            'opcode': 'operator_multiply',
+        'operator_multiply': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1212,8 +1090,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        '/': {
-            'opcode': 'operator_divide',
+        'operator_divide': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1227,8 +1104,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'randomFrom:to:': {
-            'opcode': 'operator_random',
+        'operator_random': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1242,8 +1118,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        '<': {
-            'opcode': 'operator_lt',
+        'operator_lt': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1257,8 +1132,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        '=': {
-            'opcode': 'operator_equals',
+        'operator_equals': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1272,8 +1146,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        '>': {
-            'opcode': 'operator_gt',
+        'operator_gt': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1287,8 +1160,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        '&': {
-            'opcode': 'operator_and',
+        'operator_and': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1302,8 +1174,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        '|': {
-            'opcode': 'operator_or',
+        'operator_or': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1317,8 +1188,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'not': {
-            'opcode': 'operator_not',
+        'operator_not': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1327,8 +1197,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'concatenate:with:': {
-            'opcode': 'operator_join',
+        'operator_join': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1342,8 +1211,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'letter:of:': {
-            'opcode': 'operator_letter_of',
+        'operator_letter_of': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1357,8 +1225,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'stringLength:': {
-            'opcode': 'operator_length',
+        'operator_length': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1367,8 +1234,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        '%': {
-            'opcode': 'operator_mod',
+        'operator_mod': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1382,8 +1248,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'rounded': {
-            'opcode': 'operator_round',
+        'operator_round': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1392,8 +1257,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'computeFunction:of:': {
-            'opcode': 'operator_mathop',
+        'operator_mathop': {
             'argMap': [
                 {
                     'type': 'field',
@@ -1406,8 +1270,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'readVariable': {
-            'opcode': 'data_variable',
+        'data_variable': {
             'argMap': [
                 {
                     'type': 'field',
@@ -1416,20 +1279,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        // Scratch 2 uses this alternative variable getter 'opcode' only in monitors,
-        // blocks use the `readVariable` 'opcode' above.
-        'getVar:': {
-            'opcode': 'data_variable',
-            'argMap': [
-                {
-                    'type': 'field',
-                    'fieldName': 'VARIABLE',
-                    'variableType': Scratch3Data.VAR_SCALAR_TYPE
-                }
-            ]
-        },
-        'setVar:to:': {
-            'opcode': 'data_setvariableto',
+        'data_setvariableto': {
             'argMap': [
                 {
                     'type': 'field',
@@ -1443,8 +1293,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'changeVar:by:': {
-            'opcode': 'data_changevariableby',
+        'data_changevariableby': {
             'argMap': [
                 {
                     'type': 'field',
@@ -1458,8 +1307,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'showVariable:': {
-            'opcode': 'data_showvariable',
+        'data_showvariable': {
             'argMap': [
                 {
                     'type': 'field',
@@ -1468,8 +1316,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'hideVariable:': {
-            'opcode': 'data_hidevariable',
+        'data_hidevariable': {
             'argMap': [
                 {
                     'type': 'field',
@@ -1478,8 +1325,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'contentsOfList:': {
-            'opcode': 'data_listcontents',
+        'data_listcontents': {
             'argMap': [
                 {
                     'type': 'field',
@@ -1488,8 +1334,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'append:toList:': {
-            'opcode': 'data_addtolist',
+        'data_addtolist': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1503,8 +1348,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'deleteLine:ofList:': {
-            'opcode': 'data_deleteoflist',
+        'data_deleteoflist': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1518,8 +1362,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'insert:at:ofList:': {
-            'opcode': 'data_insertatlist',
+        'data_insertatlist': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1538,8 +1381,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'setLine:ofList:to:': {
-            'opcode': 'data_replaceitemoflist',
+        'data_replaceitemoflist': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1558,8 +1400,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'getLine:ofList:': {
-            'opcode': 'data_itemoflist',
+        'data_itemoflist': {
             'argMap': [
                 {
                     'type': 'input',
@@ -1573,8 +1414,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'lineCountOfList:': {
-            'opcode': 'data_lengthoflist',
+        'data_lengthoflist': {
             'argMap': [
                 {
                     'type': 'field',
@@ -1583,8 +1423,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'list:contains:': {
-            'opcode': 'data_listcontainsitem',
+        'data_listcontainsitem': {
             'argMap': [
                 {
                     'type': 'field',
@@ -1598,8 +1437,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'showList:': {
-            'opcode': 'data_showlist',
+        'data_showlist': {
             'argMap': [
                 {
                     'type': 'field',
@@ -1608,8 +1446,7 @@ public class Scratch3Data {
                 }
             ]
         },
-        'hideList:': {
-            'opcode': 'data_hidelist',
+        'data_hidelist': {
             'argMap': [
                 {
                     'type': 'field',
@@ -1617,32 +1454,23 @@ public class Scratch3Data {
                     'variableType': Scratch3Data.VAR_LIST_TYPE
                 }
             ]
-        },
-        'procDef': {
-            'opcode': 'procedures_definition',
-            'argMap': []
-        },
-        'getParam': {
-            // Doesn't map to single 'opcode'. Import step assigns final correct 'opcode'.
-            'opcode': 'argument_reporter_string_number',
-            'argMap': [
-                {
-                    'type': 'field',
-                    'fieldName': 'VALUE'
-                }
-            ]
-        },
-        'call': {
-            'opcode': 'procedures_call',
-            'argMap': []
         }
+        // 'procedures_definition': {
+        //     'argMap': []
+        // },
+        // 'getParam': {
+        //     // Doesn't map to single 'opcode'. Import step assigns final correct 'opcode'.
+        //     'opcode': 'argument_reporter_string_number',
+        //     'argMap': [
+        //         {
+        //             'type': 'field',
+        //             'fieldName': 'VALUE'
+        //         }
+        //     ]
+        // },
+        // 'procedures_call': {
+        //     'argMap': []
+        // }
     };
-
-    public static function op3ToOp2(op3:String):String {
-        for (var op2:String in specMap) {
-            if (specMap[op2].opcode == op3) return op2;
-        }
-        return null;
-    }
 }
 }

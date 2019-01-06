@@ -41,13 +41,13 @@ public class ListPrims {
 
 	public function addPrimsTo(primTable:Dictionary):void {
 		primTable[Specs.GET_LIST]		= primContents;
-		primTable['append:toList:']		= primAppend;
-		primTable['deleteLine:ofList:']	= primDelete;
-		primTable['insert:at:ofList:']	= primInsert;
-		primTable['setLine:ofList:to:']	= primReplace;
-		primTable['getLine:ofList:']	= primGetItem;
-		primTable['lineCountOfList:']	= primLength;
-		primTable['list:contains:']		= primContains;
+		primTable['data_addtolist']		= primAppend;
+		primTable['data_deleteoflist']	= primDelete;
+		primTable['data_insertatlist']	= primInsert;
+		primTable['data_replaceitemoflist']	= primReplace;
+		primTable['data_itemoflist']	= primGetItem;
+		primTable['data_lengthoflist']	= primLength;
+		primTable['data_listcontainsitem']		= primContains;
 	}
 
 	private function primContents(b:Block):String {

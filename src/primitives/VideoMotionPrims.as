@@ -66,7 +66,7 @@ public class VideoMotionPrims {
 	}
 
 	public function addPrimsTo(primTable:Dictionary):void {
-		primTable['senseVideoMotion'] = primVideoMotion;
+		primTable['sensing_videoon'] = primVideoMotion;
 		readMotionSensor = getMotionOn;
 	}
 

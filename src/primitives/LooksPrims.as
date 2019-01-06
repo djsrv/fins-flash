@@ -39,49 +39,49 @@ public class LooksPrims {
 	}
 
 	public function addPrimsTo(primTable:Dictionary):void {
-		primTable['lookLike:']				= primShowCostume;
-		primTable['nextCostume']			= primNextCostume;
-		primTable['costumeIndex']			= primCostumeIndex;
-		primTable['costumeName']			= primCostumeName;
+		primTable['looks_switchcostumeto']				= primShowCostume;
+		primTable['looks_nextcostume']			= primNextCostume;
+		primTable['looks_costumenumbername']			= primCostumeIndex;
+		primTable['looks_costumenumbername']			= primCostumeName;
 
 		primTable['showBackground:']		= primShowCostume; // used by Scratch 1.4 and earlier (doesn't start scene hats)
 		primTable['nextBackground']			= primNextCostume; // used by Scratch 1.4 and earlier (doesn't start scene hats)
-		primTable['backgroundIndex']		= primSceneIndex;
-		primTable['sceneName']				= primSceneName;
-		primTable['nextScene']				= function(b:*):* { startScene('next backdrop', false) };
-		primTable['startScene']				= function(b:*):* { startScene(interp.arg(b, 0), false) };
-		primTable['startSceneAndWait']		= function(b:*):* { startScene(interp.arg(b, 0), true) };
+		primTable['looks_backdropnumbername']		= primSceneIndex;
+		primTable['looks_backdropnumbername']				= primSceneName;
+		primTable['looks_nextbackdrop']				= function(b:*):* { startScene('next backdrop', false) };
+		primTable['looks_switchbackdropto']				= function(b:*):* { startScene(interp.arg(b, 0), false) };
+		primTable['looks_switchbackdroptoandwait']		= function(b:*):* { startScene(interp.arg(b, 0), true) };
 
-		primTable['say:duration:elapsed:from:']		= function(b:*):* { showBubbleAndWait(b, 'talk') };
-		primTable['say:']							= function(b:*):* { showBubble(b, 'talk') };
-		primTable['think:duration:elapsed:from:']	= function(b:*):* { showBubbleAndWait(b, 'think') };
-		primTable['think:']							= function(b:*):* { showBubble(b, 'think') };
+		primTable['looks_sayforsecs']		= function(b:*):* { showBubbleAndWait(b, 'talk') };
+		primTable['looks_say']							= function(b:*):* { showBubble(b, 'talk') };
+		primTable['looks_thinkforsecs']	= function(b:*):* { showBubbleAndWait(b, 'think') };
+		primTable['looks_think']							= function(b:*):* { showBubble(b, 'think') };
 
-		primTable['changeGraphicEffect:by:'] = primChangeEffect;
-		primTable['setGraphicEffect:to:']	= primSetEffect;
-		primTable['filterReset']			= primClearEffects;
+		primTable['looks_changeeffectby'] = primChangeEffect;
+		primTable['looks_seteffectto']	= primSetEffect;
+		primTable['looks_cleargraphiceffects']			= primClearEffects;
 
-		primTable['changeSizeBy:']			= primChangeSize;
-		primTable['setSizeTo:']				= primSetSize;
-		primTable['scale']					= primSize;
+		primTable['looks_changesizeby']			= primChangeSize;
+		primTable['looks_setsizeto']				= primSetSize;
+		primTable['looks_size']					= primSize;
 
-		primTable['show']					= primShow;
-		primTable['hide']					= primHide;
-//		primTable['hideAll']				= primHideAll;
+		primTable['looks_show']					= primShow;
+		primTable['looks_hide']					= primHide;
+//		primTable['looks_hideallsprites']				= primHideAll;
 
-		primTable['comeToFront']			= primGoFront;
-		primTable['goBackByLayers:']		= primGoBack;
+		primTable['looks_gotofrontback']			= primGoFront;
+		primTable['looks_goforwardbackwardlayers']		= primGoBack;
 
-		primTable['setVideoState']			= primSetVideoState;
-		primTable['setVideoTransparency']	= primSetVideoTransparency;
+		primTable['videoSensing_videoToggle']			= primSetVideoState;
+		primTable['videoSensing_setVideoTransparency']	= primSetVideoTransparency;
 
-//		primTable['scrollAlign']			= primScrollAlign;
-//		primTable['scrollRight']			= primScrollRight;
-//		primTable['scrollUp']				= primScrollUp;
-//		primTable['xScroll']				= function(b:*):* { return app.stagePane.xScroll };
-//		primTable['yScroll']				= function(b:*):* { return app.stagePane.yScroll };
+//		primTable['motion_align_scene']			= primScrollAlign;
+//		primTable['motion_scroll_right']			= primScrollRight;
+//		primTable['motion_scroll_up']				= primScrollUp;
+//		primTable['motion_xscroll']				= function(b:*):* { return app.stagePane.xScroll };
+//		primTable['motion_yscroll']				= function(b:*):* { return app.stagePane.yScroll };
 
-		primTable['setRotationStyle']		= primSetRotationStyle;
+		primTable['motion_setrotationstyle']		= primSetRotationStyle;
 	}
 
 	private function primNextCostume(b:Block):void {

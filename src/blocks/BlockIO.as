@@ -101,10 +101,9 @@ public class BlockIO {
 		if (blockObj is Array) { // literal
 			return literal3ToLiteral2(blockObj as Array);
 		}
-		var op2:String = Scratch3Data.op3ToOp2(blockObj.opcode);
-		if (op2) {
-			var result:Array = [op2];
-			var spec:Object = Scratch3Data.specMap[op2];
+		var result:Array = [blockObj.opcode];
+		var spec:Object = Scratch3Data.specMap[blockObj.opcode];
+		if (spec) {
 			for each (var argSpec:Object in spec.argMap) {
 				var argArray:Array;
 				if (argSpec.type == 'input') { // input
@@ -183,7 +182,9 @@ public class BlockIO {
 	private static function arrayToBlock(cmd:Array, undefinedBlockType:String, forStage:Boolean = false):Block {
 		// Make a block from an array of form: <op><arg>*
 
-		if (cmd[0] == 'getUserName') Scratch.app.usesUserNameBlock = true;
+		if (Scratch2Data.specMap[cmd[0]]) cmd[0] = Scratch2Data.specMap[cmd[0]];
+
+		if (cmd[0] == 'sensing_username') Scratch.app.usesUserNameBlock = true;
 
 		var special:Block = specialCmd(cmd, forStage);
 		if (special) { special.fixArgLayout(); return special }
@@ -198,7 +199,7 @@ public class BlockIO {
 		} else {
 			var spec:Array = specForCmd(cmd, undefinedBlockType);
 			var label:String = spec[0];
-			if(forStage && spec[3] == 'whenClicked') label = 'when Stage clicked';
+			if(forStage && spec[3] == 'event_whenthisspriteclicked') label = 'when Stage clicked';
 			b = new Block(label, spec[1], Specs.blockColor(spec[2]), spec[3]);
 		}
 
@@ -225,7 +226,6 @@ public class BlockIO {
 	public static function specForCmd(cmd:Array, undefinedBlockType:String):Array {
 		// Return the block specification for the given command.
 		var op:String = cmd[0];
-		if (op == '\\\\') op = '%'; // convert old Squeak modulo operator
 		for each (var entry:Array in Specs.commands) {
 			if (entry[3] == op) return entry;
 		}
@@ -303,21 +303,21 @@ public class BlockIO {
 			return b;
 		case 'EventHatMorph':
 			if (cmd[1] == 'Scratch-StartClicked') {
-				return new Block('when @greenFlag clicked', 'h', controlColor, 'whenGreenFlag');
+				return new Block('when @greenFlag clicked', 'h', controlColor, 'event_whenflagclicked');
 			}
-			b = new Block('when I receive %m.broadcast', 'h', controlColor, 'whenIReceive');
+			b = new Block('when I receive %m.broadcast', 'h', controlColor, 'event_whenbroadcastreceived');
 			b.setArg(0, cmd[1]);
 			return b;
 		case 'MouseClickEventHatMorph':
-			b = new Block('when I am clicked', 'h', controlColor, 'whenClicked');
+			b = new Block('when I am clicked', 'h', controlColor, 'event_whenthisspriteclicked');
 			return b;
 		case 'KeyEventHatMorph':
-			b = new Block('when %m.key key pressed', 'h', controlColor, 'whenKeyPressed');
+			b = new Block('when %m.key key pressed', 'h', controlColor, 'event_whenkeypressed');
 			b.setArg(0, cmd[1]);
 			return b;
-		case 'stopScripts':
+		case 'control_stop':
 			var type:String = (cmd[1].indexOf('other scripts') == 0) ? ' ' : 'f'; // block type depends on menu arg
-			b = new Block('stop %m.stop', type, controlColor, 'stopScripts');
+			b = new Block('stop %m.stop', type, controlColor, 'control_stop');
 			if (type == ' ') {
 				if(forStage) cmd[1] = 'other scripts in stage';
 				else cmd[1] = 'other scripts in sprite';
@@ -338,37 +338,37 @@ public class BlockIO {
 
 		switch (cmd[0]) {
 		case 'abs':
-			b = new Block('%m.mathOp of %n', 'r', operatorsColor, 'computeFunction:of:');
+			b = new Block('%m.mathOp of %n', 'r', operatorsColor, 'operator_mathop');
 			b.setArg(0, 'abs');
 			b.setArg(1, convertArg(cmd[1]));
 			return b;
 		case 'sqrt':
-			b = new Block('%m.mathOp of %n', 'r', operatorsColor, 'computeFunction:of:');
+			b = new Block('%m.mathOp of %n', 'r', operatorsColor, 'operator_mathop');
 			b.setArg(0, 'sqrt');
 			b.setArg(1, convertArg(cmd[1]));
 			return b;
 		case 'doReturn':
-			b = new Block('stop %m.stop', 'f', controlColor, 'stopScripts');
+			b = new Block('stop %m.stop', 'f', controlColor, 'control_stop');
 			b.setArg(0, 'this script');
 			return b;
 		case 'stopAll':
-			b = new Block('stop %m.stop', 'f', controlColor, 'stopScripts');
+			b = new Block('stop %m.stop', 'f', controlColor, 'control_stop');
 			b.setArg(0, 'all');
 			return b;
 		case 'showBackground:':
-			b = new Block('switch backdrop to %m.backdrop', ' ', looksColor, 'startScene');
+			b = new Block('switch backdrop to %m.backdrop', ' ', looksColor, 'looks_switchbackdropto');
 			b.setArg(0, convertArg(cmd[1]));
 			return b;
 		case 'nextBackground':
-			b = new Block('next background', ' ', looksColor, 'nextScene');
+			b = new Block('next background', ' ', looksColor, 'looks_nextbackdrop');
 			return b;
 		case 'doForeverIf':
-			var ifBlock:Block = new Block('if %b then', 'c', controlColor, 'doIf');
+			var ifBlock:Block = new Block('if %b then', 'c', controlColor, 'control_if');
 			ifBlock.setArg(0, convertArg(cmd[1]));
 			if (cmd[2] is Array) ifBlock.insertBlockSub1(arrayToStack(cmd[2]));
 			ifBlock.fixArgLayout();
 
-			b = new Block('forever', 'cf', controlColor, 'doForever');
+			b = new Block('forever', 'cf', controlColor, 'control_forever');
 			b.insertBlockSub1(ifBlock);
 			return b;
 		}
@@ -382,8 +382,8 @@ public class BlockIO {
 
 	private static function fixMouseEdgeRefs(b:Block):void {
 		var refCmds:Array = [
-			'createCloneOf', 'distanceTo:', 'getAttribute:of:',
-			'gotoSpriteOrMouse:', 'pointTowards:', 'touching:'];
+			'control_create_clone_of', 'sensing_distanceto', 'sensing_of',
+			'motion_goto', 'motion_pointtowards', 'sensing_touchingobject'];
 		if (refCmds.indexOf(b.op) < 0) return;
 		var arg:BlockArg;
 		if ((b.args.length == 1) && (b.getNormalizedArg(0) is BlockArg)) arg = b.getNormalizedArg(0);

@@ -42,36 +42,36 @@ public class SensingPrims {
 
 	public function addPrimsTo(primTable:Dictionary):void {
 		// sensing
-		primTable['touching:']			= primTouching;
-		primTable['touchingColor:']		= primTouchingColor;
-		primTable['color:sees:']		= primColorSees;
+		primTable['sensing_touchingobject']			= primTouching;
+		primTable['sensing_touchingcolor']		= primTouchingColor;
+		primTable['sensing_coloristouchingcolor']		= primColorSees;
 
-		primTable['doAsk']				= primAsk;
-		primTable['answer']				= function(b:*):* { return app.runtime.lastAnswer };
+		primTable['sensing_askandwait']				= primAsk;
+		primTable['sensing_answer']				= function(b:*):* { return app.runtime.lastAnswer };
 
-		primTable['mousePressed']		= function(b:*):* { return app.gh.mouseIsDown };
-		primTable['mouseX']				= function(b:*):* { return app.stagePane.scratchMouseX() };
-		primTable['mouseY']				= function(b:*):* { return app.stagePane.scratchMouseY() };
-		primTable['timer']				= function(b:*):* { return app.runtime.timer() };
-		primTable['timerReset']			= function(b:*):* { app.runtime.timerReset() };
-		primTable['keyPressed:']		= primKeyPressed;
-		primTable['distanceTo:']		= primDistanceTo;
-		primTable['getAttribute:of:']	= primGetAttribute;
-		primTable['soundLevel']			= function(b:*):* { return app.runtime.soundLevel() };
-		primTable['isLoud']				= function(b:*):* { return app.runtime.isLoud() };
-		primTable['timestamp']			= primTimestamp;
-		primTable['timeAndDate']		= function(b:*):* { return app.runtime.getTimeString(interp.arg(b, 0)) };
-		primTable['getUserName']		= function(b:*):* { return '' };
+		primTable['sensing_mousedown']		= function(b:*):* { return app.gh.mouseIsDown };
+		primTable['sensing_mousex']				= function(b:*):* { return app.stagePane.scratchMouseX() };
+		primTable['sensing_mousey']				= function(b:*):* { return app.stagePane.scratchMouseY() };
+		primTable['sensing_timer']				= function(b:*):* { return app.runtime.timer() };
+		primTable['sensing_resettimer']			= function(b:*):* { app.runtime.timerReset() };
+		primTable['sensing_keypressed']		= primKeyPressed;
+		primTable['sensing_distanceto']		= primDistanceTo;
+		primTable['sensing_of']	= primGetAttribute;
+		primTable['sensing_loudness']			= function(b:*):* { return app.runtime.soundLevel() };
+		primTable['sensing_loud']				= function(b:*):* { return app.runtime.isLoud() };
+		primTable['sensing_dayssince2000']			= primTimestamp;
+		primTable['sensing_current']		= function(b:*):* { return app.runtime.getTimeString(interp.arg(b, 0)) };
+		primTable['sensing_username']		= function(b:*):* { return '' };
 
 		// sensor
 		primTable['sensor:']			= function(b:*):* { return app.runtime.getSensor(interp.arg(b, 0)) };
 		primTable['sensorPressed:']		= function(b:*):* { return app.runtime.getBooleanSensor(interp.arg(b, 0)) };
 
 		// variable and list watchers
-		primTable['showVariable:']		= primShowWatcher;
-		primTable['hideVariable:']		= primHideWatcher;
-		primTable['showList:']			= primShowListWatcher;
-		primTable['hideList:']			= primHideListWatcher;
+		primTable['data_showvariable']		= primShowWatcher;
+		primTable['data_hidevariable']		= primHideWatcher;
+		primTable['data_showlist']			= primShowListWatcher;
+		primTable['data_hidelist']			= primHideListWatcher;
 	}
 
 	// TODO: move to stage

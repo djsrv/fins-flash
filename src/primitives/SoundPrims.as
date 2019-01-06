@@ -40,31 +40,31 @@ public class SoundPrims {
 	}
 
 	public function addPrimsTo(primTable:Dictionary):void {
-		primTable["playSound:"]			= primPlaySound;
-		primTable["doPlaySoundAndWait"]	= primPlaySoundUntilDone;
-		primTable["stopAllSounds"]		= function(b:*):* { ScratchSoundPlayer.stopAllSounds() };
+		primTable["sound_play"]			= primPlaySound;
+		primTable["sound_playuntildone"]	= primPlaySoundUntilDone;
+		primTable["sound_stopallsounds"]		= function(b:*):* { ScratchSoundPlayer.stopAllSounds() };
 
-		primTable["drum:duration:elapsed:from:"]	= primPlayDrum; // Scratch 1.4 drum numbers
-		primTable["playDrum"]						= primPlayDrum;
-		primTable["rest:elapsed:from:"]				= primPlayRest;
+		primTable["music_midiPlayDrumForBeats"]	= primPlayDrum; // Scratch 1.4 drum numbers
+		primTable["music_playDrumForBeats"]						= primPlayDrum;
+		primTable["music_restForBeats"]				= primPlayRest;
 
-		primTable["noteOn:duration:elapsed:from:"]	= primPlayNote;
-		primTable["midiInstrument:"]				= primSetInstrument; // Scratch 1.4 instrument numbers
-		primTable["instrument:"]					= primSetInstrument;
+		primTable["music_playNoteForBeats"]	= primPlayNote;
+		primTable["music_midiSetInstrument"]				= primSetInstrument; // Scratch 1.4 instrument numbers
+		primTable["music_setInstrument"]					= primSetInstrument;
 
-		primTable["changeVolumeBy:"]	= primChangeVolume;
-		primTable["setVolumeTo:"]		= primSetVolume;
-		primTable["volume"]				= primVolume;
+		primTable["sound_changevolumeby"]	= primChangeVolume;
+		primTable["sound_setvolumeto"]		= primSetVolume;
+		primTable["sound_volume"]				= primVolume;
 
-		primTable["changeTempoBy:"]		= function(b:*):* {
+		primTable["music_changeTempo"]		= function(b:*):* {
 			app.stagePane.setTempo(app.stagePane.tempoBPM + interp.numarg(b, 0));
 			interp.redraw();
 		};
-		primTable["setTempoTo:"]		= function(b:*):* {
+		primTable["music_setTempo"]		= function(b:*):* {
 			app.stagePane.setTempo(interp.numarg(b, 0));
 			interp.redraw();
 		};
-		primTable["tempo"]				= function(b:*):* { return app.stagePane.tempoBPM };
+		primTable["music_getTempo"]				= function(b:*):* { return app.stagePane.tempoBPM };
 	}
 
 	private function primPlaySound(b:Block):void {
@@ -107,7 +107,7 @@ public class SoundPrims {
 		if (s == null) return;
 		if (interp.activeThread.firstTime) {
 			var drum:int = Math.round(interp.numarg(b, 0));
-			var isMIDI:Boolean = (b.op == 'drum:duration:elapsed:from:');
+			var isMIDI:Boolean = (b.op == 'music_midiPlayDrumForBeats');
 			var secs:Number = beatsToSeconds(interp.numarg(b, 1));
 			playDrum(drum, isMIDI, 10, s); // always play entire drum sample
 			interp.startTimer(secs);
@@ -159,7 +159,7 @@ public class SoundPrims {
 	private function primSetInstrument(b:Block):void {
 		// Set Scratch 2.0 instrument.
 		var instr:int = interp.numarg(b, 0) - 1;
-		if (b.op == 'midiInstrument:') {
+		if (b.op == 'music_midiSetInstrument') {
 			// map old to new instrument number
 			instr = instrumentMap[instr] - 1; // maps to -1 if out of range
 		}
