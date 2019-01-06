@@ -329,7 +329,7 @@ public class ScratchObj extends Sprite {
 		}
 		if ('sensing_of' == op) {
 			sprites = Scratch.app.stagePane.sprites();
-			return (sprites.length > 0) ? ['x position', sprites[sprites.length - 1].objName] : ['sound_volume', '_stage_'];
+			return (sprites.length > 0) ? ['x position', sprites[sprites.length - 1].objName] : ['volume', '_stage_'];
 		}
 
 		if ('data_setvariableto' == op) return [defaultVarName(), 0];
